@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -23,7 +24,9 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+    Label inventoryLabel = new Label();
     public static Button pickUpButton;
+
 
     public static void main(String[] args) {
         launch(args);
@@ -38,7 +41,10 @@ public class Main extends Application {
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
         ui.add(pickUpButton = new Button("Pick up"), 0, 1);
+        ui.add(new Label("Inventory: "), 0, 3);
+        ui.add(inventoryLabel, 0, 4);
         setButtonDisabledStatus(true);
+        toDoOnAction();
 
         BorderPane borderPane = new BorderPane();
 
@@ -56,6 +62,12 @@ public class Main extends Application {
 
     public static void setButtonDisabledStatus(boolean status) {
         pickUpButton.setDisable(status);
+    }
+
+    public void toDoOnAction() {
+        pickUpButton.setOnAction(value -> {
+            setButtonDisabledStatus(true);
+        });
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -96,5 +108,6 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+        inventoryLabel.setText(Item.display());
     }
 }

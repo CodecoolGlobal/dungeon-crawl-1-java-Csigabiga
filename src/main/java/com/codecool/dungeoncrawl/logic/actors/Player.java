@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 
 public class Player extends Actor {
     public Player(Cell cell) {
@@ -8,6 +9,15 @@ public class Player extends Actor {
         this.setHealth(10);
         this.setAttackPower(3);
         this.setDefensePower(1);
+    }
+
+    public void attack(int dx, int dy){
+        Cell attackCell = getCell().getNeighbor(dx, dy);
+        if(attackCell.getActor() != null){
+            Actor enemy = attackCell.getActor();
+            calculateAttack(enemy);
+
+        }
     }
 
     public String getTileName() {

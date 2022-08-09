@@ -6,9 +6,8 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
 public class Player extends Actor {
-    public Player(Cell cell) {
-        super(cell);
-        this.setHealth(10);
+    public Player(Cell cell, int health) {
+        super(cell, health);
         this.setAttackPower(5);
         this.setDefensePower(1);
     }

@@ -29,4 +29,6 @@ public class MobTimer {
     public void start() {
         this.timeline.play();
     }
+
+    public void stop() {this.timeline.stop();}
 }

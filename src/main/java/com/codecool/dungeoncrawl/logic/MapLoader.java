@@ -64,16 +64,19 @@ public class MapLoader  {
                             break;
                         case 'k':
                             cell.setType(CellType.FLOOR);
-                            map.appendSkeletons(new Skeleton(cell));
+                            map.appendSkeletons(new Skeleton(cell, 6));
                             break;
                         case 'k':
                             cell.setType(CellType.FLOOR);
-                            map.appendStaticMob(new StaticMob(cell));
-                            map.setKey(new Key(cell));
+                            map.appendStaticMob(new StaticMob(cell, 3));
                             break;
+                        case '@':
+                            cell.setType(CellType.FLOOR);
+                            map.setPlayer(new Player(cell, 10));
                         case 'x':
                             cell.setType(CellType.FLOOR);
                             map.setSword(new Sword(cell));
+                            break;
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

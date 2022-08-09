@@ -6,8 +6,8 @@ public class StaticMob extends Actor {
 
     private String status = "sleep";
 
-    public StaticMob(Cell cell) {
-        super(cell);
+    public StaticMob(Cell cell, int health) {
+        super(cell, health);
     }
 
 

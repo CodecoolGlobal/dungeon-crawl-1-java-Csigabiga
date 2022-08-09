@@ -1,4 +1,4 @@
-package com.codecool.dungeoncrawl.logic.actors;
+package com.codecool.dungeoncrawl.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 

@@ -8,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -22,6 +23,7 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+    public static Button pickUpButton;
 
     public static void main(String[] args) {
         launch(args);
@@ -35,6 +37,8 @@ public class Main extends Application {
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
+        ui.add(pickUpButton = new Button("Pick up"), 0, 1);
+        setButtonDisabledStatus(true);
 
         BorderPane borderPane = new BorderPane();
 
@@ -48,6 +52,10 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+    }
+
+    public static void setButtonDisabledStatus(boolean status) {
+        pickUpButton.setDisable(status);
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {

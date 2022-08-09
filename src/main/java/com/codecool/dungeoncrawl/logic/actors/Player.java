@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
+import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
 
 public class Player extends Actor {
@@ -16,7 +17,7 @@ public class Player extends Actor {
         super.move(dx, dy);
         if (getCell().getItem() != null) {
             if (getCell().getItem().getClass().getSimpleName().equals("Sword")) {
-                System.out.println("pick up");
+                Main.setButtonDisabledStatus(false);
             }
         }
     }

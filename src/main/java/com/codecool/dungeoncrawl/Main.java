@@ -1,8 +1,10 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.MobTimer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -15,13 +17,18 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+
+import java.util.Random;
+
 public class Main extends Application {
+    Random random = new Random();
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+    boolean start = false;
 
     public static void main(String[] args) {
         launch(args);
@@ -50,7 +57,40 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+
+    public void mobMovement() {
+        for (Skeleton skeleton:
+             map.getSkeletons()) {
+            int randInt = random.nextInt(4);
+            switch (randInt) {
+                case 0:
+                    skeleton.move(0, -1);
+                    refresh();
+                    break;
+                case 1:
+                    skeleton.move(0, 1);
+                    refresh();
+                    break;
+                case 2:
+                    skeleton.move(-1, 0);
+                    refresh();
+                    break;
+                case 3:
+                    skeleton.move(1, 0);
+                    refresh();
+                    break;
+            }
+        }
+
+    }
+
+
     private void onKeyPressed(KeyEvent keyEvent) {
+        if (!start) {
+            MobTimer mobtimer = new MobTimer(this::mobMovement);
+            start = true;
+            mobtimer.start();
+        }
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);

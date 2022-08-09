@@ -7,7 +7,7 @@ public class Player extends Actor {
     public Player(Cell cell) {
         super(cell);
         this.setHealth(10);
-        this.setAttackPower(3);
+        this.setAttackPower(5);
         this.setDefensePower(1);
     }
 

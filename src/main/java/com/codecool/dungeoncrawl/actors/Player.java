@@ -9,9 +9,8 @@ import java.util.ArrayList;
 import java.util.StringJoiner;
 
 public class Player extends Actor {
-    public Player(Cell cell) {
-        super(cell);
-        this.setHealth(10);
+    public Player(Cell cell, int health) {
+        super(cell, health);
         this.setAttackPower(5);
         this.setDefensePower(1);
     }

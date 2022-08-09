@@ -54,13 +54,15 @@ public class MapLoader  {
                         case 'k':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             cell.setType(CellType.FLOOR);
-                            map.appendSkeletons(new Skeleton(cell));
+                            map.appendSkeletons(new Skeleton(cell, 6));
                             break;
                         case 'k':
                             cell.setType(CellType.FLOOR);
-                            map.appendStaticMob(new StaticMob(cell));
-                            map.setKey(new Key(cell));
+                            map.appendStaticMob(new StaticMob(cell, 3));
                             break;
+                        case '@':
+                            cell.setType(CellType.FLOOR);
+                            map.setPlayer(new Player(cell, 10));
                         case 'x':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             map.setSword(new Sword(cell));
@@ -76,6 +78,7 @@ public class MapLoader  {
                             break;
                         case '<':
                             randomTile(cell, CellType.ORANGEWALL2, CellType.ORANGEWALLBROKEN, CellType.ORANGEWALL);
+                            break;
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

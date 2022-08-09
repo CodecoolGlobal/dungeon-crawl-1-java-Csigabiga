@@ -10,4 +10,14 @@ public class Player extends Actor {
     public String getTileName() {
         return "player";
     }
+
+    @Override
+    public void move(int dx, int dy) {
+        super.move(dx, dy);
+        if (getCell().getItem() != null) {
+            if (getCell().getItem().getClass().getSimpleName().equals("Sword")) {
+                System.out.println("pick up");
+            }
+        }
+    }
 }

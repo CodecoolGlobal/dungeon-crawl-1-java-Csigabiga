@@ -9,10 +9,7 @@ import java.util.Objects;
 public abstract class Actor implements Drawable {
     private Cell cell;
     private int health;
-
     private int defensePower;
-
-
     private int attackPower;
 
     public Actor(Cell cell) {
@@ -22,7 +19,7 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-        if (nextCell.getType().getTileName().matches("floor|floor1|floor2") &&
+        if (nextCell.getType().getTileName().matches("floor|floor1|floor2|corpse") &&
              nextCell.getActor() == null) {
             cell.setActor(null);
             nextCell.setActor(this);

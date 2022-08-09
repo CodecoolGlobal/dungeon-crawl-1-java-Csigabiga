@@ -12,6 +12,7 @@ public abstract class Actor implements Drawable {
 
     private int defensePower;
 
+
     private int attackPower;
 
     public Actor(Cell cell) {
@@ -46,5 +47,17 @@ public abstract class Actor implements Drawable {
 
     public int getY() {
         return cell.getY();
+    }
+
+    public void setDefensePower(int defensePower) {this.defensePower = defensePower;}
+
+    public int getDefensePower() {return defensePower;}
+
+    public void setAttackPower(int attackPower) {
+        this.attackPower = attackPower;
+    }
+
+    public int getAttackPower() {
+        return attackPower;
     }
 }

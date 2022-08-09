@@ -13,4 +13,22 @@ public class Player extends Actor {
     public String getTileName() {
         return "player";
     }
+
+    public void calculateAttack(Actor enemy){
+        int playerHealth = getHealth();
+        int playerAttackPower = getAttackPower();
+        int playerDefensePower = getDefensePower();
+        int enemyHealth =  enemy.getHealth();
+        int enemyAttackPower = enemy.getAttackPower();
+        int enemyDefensePower = enemy.getDefensePower();
+        enemy.setHealth((enemyHealth + enemyDefensePower) - playerAttackPower);
+        if(enemyHealth<= 0){
+            enemy.getCell().setType(CellType.CORPSE);
+            enemy.getCell().setActor(null);
+
+        }
+        else{
+            this.setHealth((playerHealth + playerDefensePower) - enemyAttackPower);
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.actors.Skeleton;
+import com.codecool.dungeoncrawl.actors.StaticMob;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
@@ -78,9 +79,15 @@ public class Main extends Application {
     }
 
 
-    public void mobMovement() {
-        for (Skeleton skeleton:
-             map.getSkeletons()) {
+    public void skeletonMovement() {
+        if (form < 22) {
+            Tiles.tileMap.put("skeleton", new Tiles.Tile(form, 8));
+            form++;
+        } else {
+            Tiles.tileMap.put("skeleton", new Tiles.Tile(form, 8));
+            form = 18;
+        }
+        for (Skeleton skeleton: map.getSkeletons()) {
             int randInt = random.nextInt(4);
             switch (randInt) {
                 case 0:
@@ -105,9 +112,33 @@ public class Main extends Application {
     }
 
 
+    public void staticMobRound() {
+        for (StaticMob staticMob: map.getStaticMobs()) {
+            if (staticMob.getStatus().equals("sleep")) {
+                int x = staticMob.getX();
+                int y = staticMob.getY();
+                Cell player = map.getPlayer().getCell();
+                int px = player.getX();
+                int py = player.getY();
+                if (px == x && py + 1 == y || px == x && py - 1 == y || px + 1 == x && py == y || px - 1 == x && py == y) {
+                    staticMob.setStatus("ready");
+                    refresh();
+                }
+            } else if (staticMob.getStatus().equals("ready")) {
+                staticMob.setStatus("explode");
+                refresh();
+            //} else {
+            //    map.removeStaticMob(staticMob);
+            //    refresh();
+            }
+
+        }
+    }
+
+
     private void onKeyPressed(KeyEvent keyEvent) {
         if (!start) {
-            MobTimer mobtimer = new MobTimer(this::mobMovement);
+            MobTimer mobtimer = new MobTimer(this::skeletonMovement, this::staticMobRound);
             start = true;
             mobtimer.start();
         }

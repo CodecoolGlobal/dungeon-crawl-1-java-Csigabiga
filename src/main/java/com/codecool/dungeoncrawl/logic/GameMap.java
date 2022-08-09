@@ -1,8 +1,11 @@
 package com.codecool.dungeoncrawl.logic;
+
+import com.codecool.dungeoncrawl.actors.Actor;
 import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.actors.Player;
 import com.codecool.dungeoncrawl.actors.Skeleton;
+import com.codecool.dungeoncrawl.actors.StaticMob;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +15,7 @@ public class GameMap {
     private int height;
     private Cell[][] cells;
     private List<Skeleton> skeletons;
+    private List<StaticMob> staticMobs;
     private Player player;
     private Key key;
     private Sword sword;
@@ -20,6 +24,7 @@ public class GameMap {
         this.width = width;
         this.height = height;
         this.skeletons = new ArrayList<>();
+        this.staticMobs = new ArrayList<>();
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -37,10 +42,11 @@ public class GameMap {
     }
 
     public void appendSkeletons(Skeleton skeleton) {skeletons.add(skeleton);}
-
+    public void appendStaticMob(StaticMob staticMob) {staticMobs.add(staticMob);}
 
     public List<Skeleton> getSkeletons() {return skeletons;}
-
+    public List<StaticMob> getStaticMobs() {return staticMobs;}
+    public void removeStaticMob(StaticMob staticMob) {staticMobs.remove(staticMob);}
     public Player getPlayer() {
         return player;
     }

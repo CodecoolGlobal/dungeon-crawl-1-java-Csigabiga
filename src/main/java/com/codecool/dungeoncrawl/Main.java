@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.monsterlogic.MonsterCycle;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
@@ -150,7 +151,21 @@ public class Main extends Application {
                 }
                 else if(cell.getItem() != null) {
                     Tiles.drawTile(context, cell.getItem(), x, y);
-                } else {
+                }
+                else if (cell.getTileName().equals("heart")){
+                    Tiles.drawTile(context, cell, x, y);
+                    int playerHealth = currentMap.getPlayer().getHealth();
+                    if (playerHealth < 10){
+                        currentMap.getCell(x + 1, y).setType(CellType.NUMBER0);
+                        currentMap.getCell(x + 2, y).setType(CellType.values()[playerHealth%10]);
+                    }
+                    else{
+                        currentMap.getCell(x + 1, y).setType(CellType.NUMBER1);
+                        currentMap.getCell(x + 2, y).setType(CellType.NUMBER0);
+
+                    }
+                }
+                else {
                     Tiles.drawTile(context, cell, x, y);
                 }
             }

@@ -1,17 +1,9 @@
 package com.codecool.dungeoncrawl;
 
-
-import com.codecool.dungeoncrawl.logic.*;
-import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.monsterlogic.MonsterCycle;
-import com.codecool.dungeoncrawl.actors.Skeleton;
-import com.codecool.dungeoncrawl.logic.*;;
-import com.codecool.dungeoncrawl.actors.StaticMob;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.MobTimer;
 import com.codecool.dungeoncrawl.util.Style;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -28,16 +20,11 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-
-    GameMap map = MapLoader.loadMap();
-    MonsterCycle monsterCycle = new MonsterCycle(map, this::refresh);
-
-    MobTimer mobtimer = new MobTimer(this::skeletonMovement, this::staticMobRound);
-    Random random = new Random();
     GameMap map01 = MapLoader.loadMap("/maps/map01.txt");
     GameMap map02 = MapLoader.loadMap("/maps/map02.txt");
     GameMap map03 = MapLoader.loadMap("/maps/map03.txt");
-    GameMap currentMap = map03;
+    GameMap currentMap = map01;
+    MonsterCycle monsterCycle = new MonsterCycle(currentMap, this::refresh);
     Canvas canvas = new Canvas(
             currentMap.getWidth() * Tiles.TILE_WIDTH,
             currentMap.getHeight() * Tiles.TILE_WIDTH);
@@ -127,7 +114,7 @@ public class Main extends Application {
                 refresh();
                 break;
             case A:
-                map.getPlayer().attack(-1,0);
+                currentMap.getPlayer().attack(-1,0);
                 refresh();
                 break;
             case D:
@@ -137,12 +124,15 @@ public class Main extends Application {
             case L:
                 if (map01.equals(currentMap)) {
                     currentMap = map02;
+                    monsterCycle = new MonsterCycle(currentMap, this::refresh);
                     refresh();
                 } else if (map02.equals(currentMap)) {
                     currentMap = map03;
+                    monsterCycle = new MonsterCycle(currentMap, this::refresh);
                     refresh();
                 } else if (map03.equals(currentMap)) {
                     currentMap = map01;
+                    monsterCycle = new MonsterCycle(currentMap, this::refresh);
                     refresh();
                 }
         }

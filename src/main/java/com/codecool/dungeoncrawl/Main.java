@@ -74,9 +74,9 @@ public class Main extends Application {
     public void toDoOnAction() {
         pickUpButton.setOnAction(value -> {
             setButtonDisabledStatus(true);
+            map.getPlayer().addToInventory();
         });
     }
-
 
     public void mobMovement() {
         for (Skeleton skeleton:
@@ -148,6 +148,6 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
-        inventoryLabel.setText(Item.display());
+        inventoryLabel.setText(map.getPlayer().display());
     }
 }

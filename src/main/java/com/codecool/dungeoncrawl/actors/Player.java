@@ -32,6 +32,8 @@ public class Player extends Actor {
             return "nextLevel";
         } else if (nextCell.getTileName().equals("stairUp")) {
             return "previousLevel";
+        }else if (nextCell.getTileName().matches("blueSwitchLeft|blueSwitchRight")) {
+            return "blueSwitch";
         }
         return null;
     }

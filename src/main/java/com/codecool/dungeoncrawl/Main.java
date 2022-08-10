@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.MobTimer;
+import com.codecool.dungeoncrawl.util.Style;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -48,6 +49,7 @@ public class Main extends Application {
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
         ui.add(pickUpButton = new Button("Pick up"), 0, 1);
+        Style.setGrey(pickUpButton);
         ui.add(new Label("Inventory: "), 0, 3);
         ui.add(inventoryLabel, 0, 4);
         setButtonDisabledStatus(true);
@@ -74,9 +76,9 @@ public class Main extends Application {
     public void toDoOnAction() {
         pickUpButton.setOnAction(value -> {
             setButtonDisabledStatus(true);
+            map.getPlayer().addToInventory();
         });
     }
-
 
     public void mobMovement() {
         for (Skeleton skeleton:
@@ -101,7 +103,6 @@ public class Main extends Application {
                     break;
             }
         }
-
     }
 
 
@@ -164,6 +165,6 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
-        inventoryLabel.setText(Item.display());
+        inventoryLabel.setText(map.getPlayer().display());
     }
 }

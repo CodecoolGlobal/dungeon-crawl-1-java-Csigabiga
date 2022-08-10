@@ -7,7 +7,12 @@ public enum CellType {
     FLOOR2("floor2"),
     CORPSE("corpse"),
     WALL("wall"),
-    KEY("key");
+    ORANGEWALL("orangeWall"),
+    ORANGEWALL2("orangeWall2"),
+    ORANGEWALLBROKEN("orangeWallBroken"),
+    KEY("key"),
+    STAIRUP("stairUp"),
+    STAIRDOWN("stairDown");
 
     private final String tileName;
 

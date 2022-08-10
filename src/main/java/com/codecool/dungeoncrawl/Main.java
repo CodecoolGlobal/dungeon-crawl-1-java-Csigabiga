@@ -25,10 +25,13 @@ import java.util.Random;
 
 public class Main extends Application {
     Random random = new Random();
-    GameMap map = MapLoader.loadMap();
+    GameMap map01 = MapLoader.loadMap("/maps/map01.txt");
+    GameMap map02 = MapLoader.loadMap("/maps/map02.txt");
+    GameMap map03 = MapLoader.loadMap("/maps/map03.txt");
+    GameMap currentMap = map03;
     Canvas canvas = new Canvas(
-            map.getWidth() * Tiles.TILE_WIDTH,
-            map.getHeight() * Tiles.TILE_WIDTH);
+            currentMap.getWidth() * Tiles.TILE_WIDTH,
+            currentMap.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
     boolean start = false;
@@ -76,13 +79,14 @@ public class Main extends Application {
     public void toDoOnAction() {
         pickUpButton.setOnAction(value -> {
             setButtonDisabledStatus(true);
-            map.getPlayer().addToInventory();
+            currentMap.getPlayer().addToInventory();
         });
     }
 
+
     public void mobMovement() {
         for (Skeleton skeleton:
-             map.getSkeletons()) {
+             currentMap.getSkeletons()) {
             int randInt = random.nextInt(4);
             switch (randInt) {
                 case 0:
@@ -114,46 +118,58 @@ public class Main extends Application {
         }
         switch (keyEvent.getCode()) {
             case UP:
-                map.getPlayer().move(0, -1);
+                currentMap.getPlayer().move(0, -1);
                 refresh();
                 break;
             case DOWN:
-                map.getPlayer().move(0, 1);
+                currentMap.getPlayer().move(0, 1);
                 refresh();
                 break;
             case LEFT:
-                map.getPlayer().move(-1, 0);
+                currentMap.getPlayer().move(-1, 0);
                 refresh();
                 break;
             case RIGHT:
-                map.getPlayer().move(1,0);
+                currentMap.getPlayer().move(1,0);
                 refresh();
                 break;
             case W:
-                map.getPlayer().attack(0,-1);
+                currentMap.getPlayer().attack(0,-1);
                 refresh();
                 break;
             case S:
-                map.getPlayer().attack(0,1);
+                currentMap.getPlayer().attack(0,1);
                 refresh();
                 break;
             case A:
-                map.getPlayer().attack(-1,0);
+                currentMap.getPlayer().attack(-1,0);
+
                 refresh();
                 break;
             case D:
-                map.getPlayer().attack(1,0);
+                currentMap.getPlayer().attack(1,0);
                 refresh();
                 break;
+            case L:
+                if (map01.equals(currentMap)) {
+                    currentMap = map02;
+                    refresh();
+                } else if (map02.equals(currentMap)) {
+                    currentMap = map03;
+                    refresh();
+                } else if (map03.equals(currentMap)) {
+                    currentMap = map01;
+                    refresh();
+                }
         }
     }
 
     private void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
-                Cell cell = map.getCell(x, y);
+        for (int x = 0; x < currentMap.getWidth(); x++) {
+            for (int y = 0; y < currentMap.getHeight(); y++) {
+                Cell cell = currentMap.getCell(x, y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y);
                 }
@@ -164,7 +180,7 @@ public class Main extends Application {
                 }
             }
         }
-        healthLabel.setText("" + map.getPlayer().getHealth());
-        inventoryLabel.setText(map.getPlayer().display());
+        healthLabel.setText("" + currentMap.getPlayer().getHealth());
+        inventoryLabel.setText(currentMap.getPlayer().display());
     }
 }

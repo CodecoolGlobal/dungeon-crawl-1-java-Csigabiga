@@ -25,6 +25,9 @@ public class Tiles {
     static {
         tileMap.put("empty", new Tile(0, 0));
         tileMap.put("wall", new Tile(10, 17));
+        tileMap.put("orangeWall", new Tile(6, 13));
+        tileMap.put("orangeWall2", new Tile(7, 15));
+        tileMap.put("orangeWallBroken", new Tile(6, 15));
         tileMap.put("floor", new Tile(2, 0));
         tileMap.put("floor1", new Tile(4, 0));
         tileMap.put("floor2", new Tile(3, 0));
@@ -33,6 +36,8 @@ public class Tiles {
         tileMap.put("skeleton", new Tile(29, 6));
         tileMap.put("key", new Tile(16, 23));
         tileMap.put("sword", new Tile(0, 28));
+        tileMap.put("stairUp", new Tile(2, 6));
+        tileMap.put("stairDown", new Tile(3, 6));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

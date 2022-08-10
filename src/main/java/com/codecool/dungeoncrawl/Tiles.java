@@ -35,10 +35,11 @@ public class Tiles {
         tileMap.put("skeleton2", new Tile(19, 8));
         tileMap.put("sword", new Tile(0, 28));
         tileMap.put("skeleton", new Tile(23, 8));
-        tileMap.put("key", new Tile(23, 16));
+        tileMap.put("key", new Tile(16, 23));
         tileMap.put("sleep", new Tile(23, 7));
         tileMap.put("ready", new Tile(20, 7));
         tileMap.put("explode", new Tile(27, 11));
+        tileMap.put("musketeer", new Tile(30, 6));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

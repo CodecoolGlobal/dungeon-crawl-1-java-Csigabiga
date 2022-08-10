@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.actors.ThreeMusketeers;
 import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.actors.Player;
@@ -54,19 +55,27 @@ public class MapLoader  {
                             break;
                         case 's':
                             cell.setType(CellType.FLOOR);
-                            map.appendSkeleton(new Skeleton(cell, 6));
+                            map.appendSkeleton(new Skeleton(cell, 6, 3, 2));
+                            break;
+                        case 'b':
+                            cell.setType(CellType.FLOOR);
+                            map.appendBomber(new Bomber(cell, 4, 6, 1));
                             break;
                         case 'k':
                             cell.setType(CellType.FLOOR);
-                            map.appendBomber(new Bomber(cell, 3));
+                            map.setKey(new Key(cell));
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell, 10));
+                            map.setPlayer(new Player(cell, 10, 4 , 2));
+                            break;
                         case 'x':
                             cell.setType(CellType.FLOOR);
                             map.setSword(new Sword(cell));
                             break;
+                        case '3':
+                            cell.setType(CellType.FLOOR);
+                            map.appendThreeMusketeers(new ThreeMusketeers(cell, 10, 4, 3));
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

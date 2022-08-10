@@ -4,10 +4,8 @@ import com.codecool.dungeoncrawl.logic.Cell;
 
 public class Skeleton extends Actor {
     private String name = "skeleton0";
-    public Skeleton(Cell cell, int health) {
-        super(cell, health);
-        setAttackPower(2);
-        setDefensePower(0);
+    public Skeleton(Cell cell, int health, int attackPower, int defensePower) {
+        super(cell, health, attackPower, defensePower);
     }
 
     @Override

@@ -24,8 +24,10 @@ public class MonsterCycle {
     }
 
     private void doStep(ActionEvent actionEvent) {
+        map.isAlive();
         map.skeletonRound();
         map.bomberRound();
+        map.threeMusketeerRound();
         refresh.run();
 
     }

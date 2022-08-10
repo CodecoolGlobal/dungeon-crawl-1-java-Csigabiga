@@ -7,6 +7,9 @@ public enum CellType {
     FLOOR2("floor2"),
     CORPSE("corpse"),
     WALL("wall"),
+    ORANGEWALL("orangeWall"),
+    ORANGEWALL2("orangeWall2"),
+    ORANGEWALLBROKEN("orangeWallBroken"),
     KEY("key"),
     STAIRUP("stairUp"),
     STAIRDOWN("stairDown");

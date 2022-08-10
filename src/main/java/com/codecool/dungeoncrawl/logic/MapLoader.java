@@ -11,20 +11,9 @@ import java.util.Scanner;
 
 public class MapLoader  {
 
-    private static void randomFloorTile(Cell cell){
+    private static void randomTile(Cell cell, CellType ... cellTypes){
         Random random = new Random();
-        int randomFloor = random.nextInt(3);
-        switch (randomFloor){
-            case 0:
-                cell.setType(CellType.FLOOR);
-                break;
-            case 1:
-                cell.setType(CellType.FLOOR1);
-                break;
-            case 2:
-                cell.setType(CellType.FLOOR2);
-                break;
-        }
+        cell.setType(cellTypes[random.nextInt(cellTypes.length)]);
     }
 
     public static GameMap loadMap(String mapPath) {
@@ -49,31 +38,35 @@ public class MapLoader  {
                             cell.setType(CellType.WALL);
                             break;
                         case '.':
-                            randomFloorTile(cell);
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             break;
                         case 's':
-                            randomFloorTile(cell);
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             new Skeleton(cell);
                             break;
                         case '@':
-                            randomFloorTile(cell);
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             map.setPlayer(new Player(cell));
                             break;
                         case 'k':
-                            cell.setType(CellType.FLOOR);
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             map.setKey(new Key(cell));
                             break;
                         case 'x':
-                            cell.setType(CellType.FLOOR);
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             map.setSword(new Sword(cell));
                             break;
                         case 'l':
                             cell.setType(CellType.STAIRDOWN);
-
                             break;
                         case 'L':
                             cell.setType(CellType.STAIRUP);
-
+                            break;
+                        case '>':
+                            cell.setType(CellType.ORANGEWALL);
+                            break;
+                        case '<':
+                            randomTile(cell, CellType.ORANGEWALL2, CellType.ORANGEWALLBROKEN, CellType.ORANGEWALL);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

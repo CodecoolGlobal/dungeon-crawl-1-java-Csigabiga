@@ -36,20 +36,29 @@ public class Player extends Actor {
         return "player";
     }
 
+    private void pickUpItems() {
+        if (getCell().getItem().getClass().getSimpleName().equals("Sword") || getCell().getItem().getClass().getSimpleName().equals("Key")) {
+            Main.setButtonDisabledStatus(false);
+        }
+    }
+
+    private void openDoor(int dx, int dy) {
+        for (Item item: items) {
+            if (item.getClass().getSimpleName().equals("Key")) {
+                getCell().getNeighbor(dx, dy).setType(CellType.OPENBLUEDOOR);
+                items.remove(item);
+            }
+        }
+    }
+
     @Override
     public void move(int dx, int dy) {
         super.move(dx, dy);
         if (getCell().getItem() != null) {
-            if (getCell().getItem().getClass().getSimpleName().equals("Sword") || getCell().getItem().getClass().getSimpleName().equals("Key")) {
-                Main.setButtonDisabledStatus(false);
-            }
+            pickUpItems();
         }
         else if (Objects.equals(getCell().getNeighbor(dx, dy).getTileName(), "closedBlueDoor")) {
-            for (Item item: items) {
-                if (item.getClass().getSimpleName().equals("Key")) {
-                    getCell().getNeighbor(dx, dy).setType(CellType.OPENBLUEDOOR);
-                }
-            }
+            openDoor(dx, dy);
         }
     }
 

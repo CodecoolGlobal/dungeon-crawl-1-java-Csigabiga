@@ -14,5 +14,5 @@ public class Skeleton extends Actor {
     public String getTileName() {
         return name;
     }
-    public void setSkeletonName(String name) {this.name=name;}
+    public void setTileName(String name) {this.name=name;}
 }

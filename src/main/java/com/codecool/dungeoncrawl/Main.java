@@ -1,5 +1,8 @@
 package com.codecool.dungeoncrawl;
 
+
+import com.codecool.dungeoncrawl.logic.*;
+import com.codecool.dungeoncrawl.logic.monsterlogic.MonsterCycle;
 import com.codecool.dungeoncrawl.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.*;;
 import com.codecool.dungeoncrawl.actors.StaticMob;
@@ -26,6 +29,11 @@ import javafx.stage.Stage;
 import java.util.Random;
 
 public class Main extends Application {
+
+
+    GameMap map = MapLoader.loadMap();
+    MonsterCycle monsterCycle = new MonsterCycle(map, this::refresh);
+
     MobTimer mobtimer = new MobTimer(this::skeletonMovement, this::staticMobRound);
     Random random = new Random();
     GameMap map01 = MapLoader.loadMap("/maps/map01.txt");
@@ -87,69 +95,13 @@ public class Main extends Application {
     }
 
 
-    public void skeletonMovement() {
-        for (Skeleton skeleton: map.getSkeletons()) {
-            if (skeleton.getTileName().equals("skeleton0")) {
-                skeleton.setSkeletonName("skeleton2");
-            } else if (skeleton.getTileName().equals("skeleton2")){
-                skeleton.setSkeletonName("skeleton1");
-            } else {skeleton.setSkeletonName("skeleton2");}
-            int randInt = random.nextInt(4);
-            switch (randInt) {
-                case 0:
-                    skeleton.move(0, -1);
-                    refresh();
-                    break;
-                case 1:
-                    skeleton.move(0, 1);
-                    refresh();
-                    break;
-                case 2:
-                    skeleton.move(-1, 0);
-                    refresh();
-                    break;
-                case 3:
-                    skeleton.move(1, 0);
-                    refresh();
-                    break;
-            }
-        }
-    }
 
-
-    public void staticMobRound() {
-        for (StaticMob staticMob: map.getStaticMobs()) {
-            int x = staticMob.getX();
-            int y = staticMob.getY();
-            Cell player = map.getPlayer().getCell();
-            int px = player.getX();
-            int py = player.getY();
-            if (staticMob.getStatus().equals("sleep")) {
-                if (px == x && py + 1 == y || px == x && py - 1 == y || px + 1 == x && py == y || px - 1 == x && py == y) {
-                    staticMob.setStatus("ready");
-                    refresh();
-                }
-            } else if (staticMob.getStatus().equals("ready")) {
-                staticMob.setStatus("explode");
-                if (px == x && py + 1 == y || px == x && py - 1 == y || px + 1 == x && py == y || px - 1 == x && py == y) {
-                    map.getPlayer().setHealth(6);
-                }
-                refresh();
-            } else if (staticMob.getStatus().equals("explode")){
-                staticMob.setStatus("floor");
-                staticMob.getCell().setType(CellType.FLOOR);
-                staticMob.getCell().setActor(null);
-                refresh();
-            }
-
-        }
-    }
 
 
     private void onKeyPressed(KeyEvent keyEvent) {
         if (!start) {
             start = true;
-            mobtimer.start();
+            monsterCycle.start();
         }
         switch (keyEvent.getCode()) {
             case UP:

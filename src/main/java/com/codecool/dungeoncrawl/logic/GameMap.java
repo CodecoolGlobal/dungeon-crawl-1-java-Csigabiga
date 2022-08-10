@@ -5,17 +5,19 @@ import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.actors.Player;
 import com.codecool.dungeoncrawl.actors.Skeleton;
-import com.codecool.dungeoncrawl.actors.StaticMob;
+import com.codecool.dungeoncrawl.actors.Bomber;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameMap {
+    Random random = new Random();
     private int width;
     private int height;
     private Cell[][] cells;
     private List<Skeleton> skeletons;
-    private List<StaticMob> staticMobs;
+    private List<Bomber> bombers;
     private Player player;
     private Key key;
     private Sword sword;
@@ -24,7 +26,7 @@ public class GameMap {
         this.width = width;
         this.height = height;
         this.skeletons = new ArrayList<>();
-        this.staticMobs = new ArrayList<>();
+        this.bombers = new ArrayList<>();
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -41,12 +43,10 @@ public class GameMap {
         this.player = player;
     }
 
-    public void appendSkeletons(Skeleton skeleton) {skeletons.add(skeleton);}
-    public void appendStaticMob(StaticMob staticMob) {staticMobs.add(staticMob);}
+    public void appendSkeleton(Skeleton skeleton) {skeletons.add(skeleton);}
+    public void appendBomber(Bomber bomber) {
+        bombers.add(bomber);}
 
-    public List<Skeleton> getSkeletons() {return skeletons;}
-    public List<StaticMob> getStaticMobs() {return staticMobs;}
-    public void removeStaticMob(StaticMob staticMob) {staticMobs.remove(staticMob);}
     public Player getPlayer() {
         return player;
     }
@@ -76,4 +76,54 @@ public class GameMap {
         return height;
     }
 
+    public void skeletonRound() {
+        for (Skeleton skeleton: skeletons) {
+            if (skeleton.getTileName().equals("skeleton0")) {
+                skeleton.setTileName("skeleton2");
+            } else if (skeleton.getTileName().equals("skeleton2")){
+                skeleton.setTileName("skeleton1");
+            } else {skeleton.setTileName("skeleton2");}
+            switch (random.nextInt(4)) {
+                case 0:
+                    skeleton.move(0, -1);
+                    break;
+                case 1:
+                    skeleton.move(0, 1);
+                    break;
+                case 2:
+                    skeleton.move(-1, 0);
+                    break;
+                case 3:
+                    skeleton.move(1, 0);
+                    break;
+            }
+        }
+
+    }
+
+
+    public void bomberRound() {
+        for (Bomber bomber : bombers) {
+            int x = bomber.getX();
+            int y = bomber.getY();
+            Cell player = getPlayer().getCell();
+            int px = player.getX();
+            int py = player.getY();
+            if (bomber.getTileName().equals("sleep")) {
+                if (px == x && py + 1 == y || px == x && py - 1 == y || px + 1 == x && py == y || px - 1 == x && py == y) {
+                    bomber.setTileName("ready");
+                }
+            } else if (bomber.getTileName().equals("ready")) {
+                bomber.setTileName("explode");
+                if (px == x && py + 1 == y || px == x && py - 1 == y || px + 1 == x && py == y || px - 1 == x && py == y) {
+                    getPlayer().setHealth(6);
+                }
+            } else if (bomber.getTileName().equals("explode")){
+                bomber.setTileName("floor");
+                bomber.getCell().setType(CellType.FLOOR);
+                bomber.getCell().setActor(null);
+            }
+
+        }
+    }
 }

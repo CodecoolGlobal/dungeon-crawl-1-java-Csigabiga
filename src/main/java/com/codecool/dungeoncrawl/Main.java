@@ -153,4 +153,24 @@ public class Main extends Application {
         healthLabel.setText("" + currentMap.getPlayer().getHealth());
         inventoryLabel.setText(currentMap.getPlayer().display());
     }
+
+    public void playerInteraction(int dx, int dy){
+       String levelCheck =  currentMap.getPlayer().interact(dx, dy);
+       refresh();
+       if (levelCheck.equals("nextLevel")){
+           if (map01.equals(currentMap)) {
+               currentMap = map02;
+               monsterCycle = new MonsterCycle(currentMap, this::refresh);
+               refresh();
+           } else if (map02.equals(currentMap)) {
+               currentMap = map03;
+               monsterCycle = new MonsterCycle(currentMap, this::refresh);
+               refresh();
+           } else if (map03.equals(currentMap)) {
+               currentMap = map01;
+               monsterCycle = new MonsterCycle(currentMap, this::refresh);
+               refresh();
+           }
+        }
+    }
 }

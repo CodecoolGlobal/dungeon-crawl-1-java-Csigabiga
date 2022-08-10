@@ -62,6 +62,9 @@ public class MapLoader  {
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             map.setSword(new Sword(cell));
                             break;
+                        case 'D':
+                            cell.setType(CellType.CLOSEDBLUEDOOR);
+                            break;
                         case 'l':
                             cell.setType(CellType.STAIRDOWN);
                             break;

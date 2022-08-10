@@ -31,6 +31,7 @@ public class Tiles {
         tileMap.put("blueSwitchLeft", new Tile(3, 10));
         tileMap.put("blueSwitchRight", new Tile(4, 10));
         tileMap.put("blueSwitchLock", new Tile(0, 11));
+        tileMap.put("trapRouteTile", new Tile(17, 0));
         tileMap.put("floor", new Tile(2, 0));
         tileMap.put("floor1", new Tile(4, 0));
         tileMap.put("floor2", new Tile(3, 0));

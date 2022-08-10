@@ -1,6 +1,16 @@
 package com.codecool.dungeoncrawl.logic;
 
 public enum CellType {
+    NUMBER0("numberZero"),
+    NUMBER1("numberOne"),
+    NUMBER2("numberTwo"),
+    NUMBER3("numberThree"),
+    NUMBER4("numberFour"),
+    NUMBER5("numberFive"),
+    NUMBER6("numberSix"),
+    NUMBER7("numberSeven"),
+    NUMBER8("numberEight"),
+    NUMBER9("numberNine"),
     EMPTY("empty"),
     FLOOR("floor"),
     FLOOR1("floor1"),
@@ -15,6 +25,8 @@ public enum CellType {
     STAIRDOWN("stairDown"),
     CLOSEDBLUEDOOR("closedBlueDoor"),
     OPENBLUEDOOR("openedBlueDoor"),
+    INFOBARMIDDLE("infoBarMiddle"),
+    HEART("heart"),
     TRIGGER("trigger"),
     BOX("box");
 

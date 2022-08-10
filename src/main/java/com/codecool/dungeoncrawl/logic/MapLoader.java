@@ -69,6 +69,12 @@ public class MapLoader  {
                         case 'L':
                             cell.setType(CellType.STAIRUP);
                             break;
+                        case '!':
+                            cell.setType(CellType.HEART);
+                            break;
+                        case '=':
+                            cell.setType(CellType.INFOBARMIDDLE);
+                            break;
                         case '>':
                             cell.setType(CellType.ORANGEWALL);
                             break;

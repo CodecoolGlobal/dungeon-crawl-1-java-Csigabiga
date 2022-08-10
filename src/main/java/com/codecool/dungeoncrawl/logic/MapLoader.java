@@ -11,9 +11,9 @@ import java.io.InputStream;
 import java.util.Random;
 import java.util.Scanner;
 
-public class MapLoader  {
+public class MapLoader {
 
-    private static void randomTile(Cell cell, CellType ... cellTypes){
+    private static void randomTile(Cell cell, CellType... cellTypes) {
         Random random = new Random();
         cell.setType(cellTypes[random.nextInt(cellTypes.length)]);
     }
@@ -44,7 +44,7 @@ public class MapLoader  {
                             break;
                         case 's':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
-                            map.appendSkeleton(new Skeleton(cell, 6, 3, 2));
+                            map.appendSkeleton(new Skeleton(cell, 6, 3, 0));
                             break;
                         case '@':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
@@ -64,6 +64,9 @@ public class MapLoader  {
                             break;
                         case 'l':
                             cell.setType(CellType.STAIRDOWN);
+                            break;
+                        case 'd':
+                            cell.setType(CellType.CLOSEDBLUEDOOR);
                             break;
                         case 'L':
                             cell.setType(CellType.STAIRUP);

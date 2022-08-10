@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -59,6 +60,19 @@ public class Player extends Actor {
         }
         else if (Objects.equals(getCell().getNeighbor(dx, dy).getTileName(), "closedBlueDoor")) {
             openDoor(dx, dy);
+        }
+    }
+
+    public void moveBox(int dx, int dy, char key) {
+        if (getCell().getNeighbor(dx, dy).getTileName().equals("box")) {
+            int boxPositionX = getX();
+            int boxPositionY = getY();
+            int playerPositionX = getCell().getX();
+            int playerPositionY = getCell().getY();
+
+            if (key == 'S') {
+                boxPositionY = getY() - 1;
+            }
         }
     }
 

@@ -1,4 +1,5 @@
 package com.codecool.dungeoncrawl.logic;
+import com.codecool.dungeoncrawl.logic.items.Box;
 import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.actors.Player;
@@ -15,6 +16,8 @@ public class GameMap {
     private Player player;
     private Key key;
     private Sword sword;
+
+    private Box box;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -60,6 +63,7 @@ public class GameMap {
     public void setSword(Sword sword) {
         this.sword = sword;
     }
+
 
 
     public int getWidth() {

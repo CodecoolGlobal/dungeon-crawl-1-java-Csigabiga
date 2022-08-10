@@ -134,6 +134,7 @@ public class Main extends Application {
                 break;
             case S:
                 map.getPlayer().attack(0,1);
+                map.getPlayer().moveBox(0, 1, 'S');
                 refresh();
                 break;
             case A:

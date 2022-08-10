@@ -44,10 +44,10 @@ public class Player extends Actor {
                 Main.setButtonDisabledStatus(false);
             }
         }
-        else if (Objects.equals(getCell().getNeighbor(dx+1, dy).getTileName(), "closedBlueDoor")) {
+        else if (Objects.equals(getCell().getNeighbor(dx, dy).getTileName(), "closedBlueDoor")) {
             for (Item item: items) {
                 if (item.getClass().getSimpleName().equals("Key")) {
-                    getCell().getNeighbor(dx+1, dy).setType(CellType.OPENBLUEDOOR);
+                    getCell().getNeighbor(dx, dy).setType(CellType.OPENBLUEDOOR);
                 }
             }
         }

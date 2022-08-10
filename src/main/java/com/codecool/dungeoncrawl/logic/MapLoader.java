@@ -5,6 +5,8 @@ import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Sword;
+import com.codecool.dungeoncrawl.actors.Player;
+import com.codecool.dungeoncrawl.actors.Skeleton;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -36,7 +38,7 @@ public class MapLoader {
                             break;
                         case 's':
                             cell.setType(CellType.FLOOR);
-                            new Skeleton(cell);
+                            map.appendSkeletons(new Skeleton(cell));
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);

@@ -20,9 +20,6 @@ public class Player extends Actor {
         super(cell, health, attackPower, defensePower);
     }
 
-
-    private final LinkedList<Item> items = new LinkedList<>();
-
     public String interact(int dx, int dy){
         Cell nextCell = this.getCell().getNeighbor(dx, dy);
         if (nextCell.getActor() != null){
@@ -91,6 +88,8 @@ public class Player extends Actor {
             if (getCell().getItem().getClass().getSimpleName().equals("Sword") || getCell().getItem().getClass().getSimpleName().equals("Key") || getCell().getItem().getTileName().equals("shield")) {
                 Main.setButtonDisabledStatus(false);
                 pickUpItems();
+            }
+        }
     }
 
     public void moveBox(int dx, int dy, char key) {

@@ -4,11 +4,31 @@ import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.actors.Player;
 import com.codecool.dungeoncrawl.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 
 import java.io.InputStream;
+import java.util.Random;
 import java.util.Scanner;
 
-public class MapLoader {
+public class MapLoader  {
+
+    private static void randomFloorTile(Cell cell){
+        Random random = new Random();
+        int randomFloor = random.nextInt(3);
+        switch (randomFloor){
+            case 0:
+                cell.setType(CellType.FLOOR);
+                break;
+            case 1:
+                cell.setType(CellType.FLOOR1);
+                break;
+            case 2:
+                cell.setType(CellType.FLOOR2);
+                break;
+        }
+    }
+
     public static GameMap loadMap() {
         InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
         Scanner scanner = new Scanner(is);
@@ -31,14 +51,14 @@ public class MapLoader {
                             cell.setType(CellType.WALL);
                             break;
                         case '.':
-                            cell.setType(CellType.FLOOR);
+                            randomFloorTile(cell);
                             break;
                         case 's':
-                            cell.setType(CellType.FLOOR);
-                            map.appendSkeletons(new Skeleton(cell));
+                            randomFloorTile(cell);
+                            new Skeleton(cell);
                             break;
                         case '@':
-                            cell.setType(CellType.FLOOR);
+                            randomFloorTile(cell);
                             map.setPlayer(new Player(cell));
                             break;
                         case 'k':

@@ -128,6 +128,22 @@ public class Main extends Application {
                 map.getPlayer().move(1,0);
                 refresh();
                 break;
+            case W:
+                map.getPlayer().attack(0,-1);
+                refresh();
+                break;
+            case S:
+                map.getPlayer().attack(0,1);
+                refresh();
+                break;
+            case A:
+                map.getPlayer().attack(-1,0);
+                refresh();
+                break;
+            case D:
+                map.getPlayer().attack(1,0);
+                refresh();
+                break;
         }
     }
 

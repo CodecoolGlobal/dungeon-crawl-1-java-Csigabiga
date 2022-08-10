@@ -49,6 +49,14 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.setSword(new Sword(cell));
                             break;
+                        case 'l':
+                            cell.setType(CellType.STAIRDOWN);
+
+                            break;
+                        case 'L':
+                            cell.setType(CellType.STAIRUP);
+
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

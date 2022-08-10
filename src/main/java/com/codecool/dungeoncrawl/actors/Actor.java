@@ -20,7 +20,7 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-        if (nextCell.getType().getTileName().matches("floor|floor1|floor2|corpse") &&
+        if (nextCell.getType().getTileName().matches("floor|floor1|floor2|corpse|closed|openedBlueDoor") &&
              nextCell.getActor() == null) {
             cell.setActor(null);
             nextCell.setActor(this);

@@ -13,6 +13,11 @@ public enum CellType {
     KEY("key"),
     STAIRUP("stairUp"),
     STAIRDOWN("stairDown");
+    KEY("key"),
+    CLOSEDBLUEDOOR("closedBlueDoor"),
+    OPENBLUEDOOR("openedBlueDoor"),
+    TRIGGER("trigger"),
+    BOX("box");
 
     private final String tileName;
 

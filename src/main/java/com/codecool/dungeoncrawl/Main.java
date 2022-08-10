@@ -79,10 +79,6 @@ public class Main extends Application {
         });
     }
 
-
-
-
-
     private void onKeyPressed(KeyEvent keyEvent) {
         if (!start) {
             start = true;

@@ -102,20 +102,18 @@ public class Main extends Application {
                 refresh();
                 break;
             case W:
-                currentMap.getPlayer().interact(0,-1);
-                refresh();
+                playerInteraction(0, -1);
                 break;
             case S:
-                currentMap.getPlayer().interact(0,1);
-                refresh();
+                playerInteraction(0, 1);
+
                 break;
             case A:
-                currentMap.getPlayer().interact(-1,0);
-                refresh();
+                playerInteraction(-1, 0);
+
                 break;
             case D:
-                currentMap.getPlayer().interact(1,0);
-                refresh();
+                playerInteraction(1, 0);
                 break;
             case L:
                 if (map01.equals(currentMap)) {

@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
-
+import com.codecool.dungeoncrawl.logic.items.Key;
+import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.actors.Player;
 import com.codecool.dungeoncrawl.actors.Skeleton;
 
@@ -12,6 +13,8 @@ public class GameMap {
     private Cell[][] cells;
     private List<Skeleton> skeletons;
     private Player player;
+    private Key key;
+    private Sword sword;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -42,6 +45,23 @@ public class GameMap {
         return player;
     }
 
+    public Key getKey() {
+        return key;
+    }
+
+    public void setKey(Key key) {
+        this.key = key;
+    }
+
+    public Sword getSword() {
+        return sword;
+    }
+
+    public void setSword(Sword sword) {
+        this.sword = sword;
+    }
+
+
     public int getWidth() {
         return width;
     }
@@ -49,4 +69,5 @@ public class GameMap {
     public int getHeight() {
         return height;
     }
+
 }

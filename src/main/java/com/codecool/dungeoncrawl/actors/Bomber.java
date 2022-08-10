@@ -6,8 +6,8 @@ public class Bomber extends Actor {
 
     private String tileName = "sleep";
 
-    public Bomber(Cell cell, int health) {
-        super(cell, health);
+    public Bomber(Cell cell, int health, int attackPower, int defensePower) {
+        super(cell, health, attackPower, defensePower);
     }
 
 

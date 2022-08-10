@@ -10,9 +10,11 @@ public abstract class Actor implements Drawable {
     private int defensePower;
     private int attackPower;
 
-    public Actor(Cell cell, int health) {
+    public Actor(Cell cell, int health, int attackPower, int defensePower) {
         this.cell = cell;
         this.health = health;
+        this.attackPower = attackPower;
+        this.defensePower = defensePower;
         this.cell.setActor(this);
     }
 
@@ -31,7 +33,7 @@ public abstract class Actor implements Drawable {
         return health;
     }
 
-    public void setHealth(int health) {this.health = health;}
+    public void setHealth(int damage) {this.health = health - damage + defensePower;}
 
     public Cell getCell() {
         return cell;

@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl;
 
 
 import com.codecool.dungeoncrawl.logic.*;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.monsterlogic.MonsterCycle;
 import com.codecool.dungeoncrawl.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.*;;
@@ -24,9 +25,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-
-import java.util.Random;
 
 public class Main extends Application {
 

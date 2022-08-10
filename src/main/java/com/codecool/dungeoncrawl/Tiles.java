@@ -42,6 +42,7 @@ public class Tiles {
         tileMap.put("sleep", new Tile(23, 7));
         tileMap.put("ready", new Tile(20, 7));
         tileMap.put("explode", new Tile(27, 11));
+        tileMap.put("musketeer", new Tile(30, 6));
         tileMap.put("stairUp", new Tile(2, 6));
         tileMap.put("stairDown", new Tile(3, 6));
     }

@@ -16,15 +16,19 @@ public class Player extends Actor {
         super(cell, health, attackPower, defensePower);
     }
 
-    public void attack(int dx, int dy){
-        Cell attackCell = getCell().getNeighbor(dx, dy);
-        if(attackCell.getActor() != null){
-            Actor enemy = attackCell.getActor();
-            calculateAttack(enemy);
 
+    private final LinkedList<Item> items = new LinkedList<>();
+
+    public void interact(int dx, int dy){
+        Cell nextCell = this.getCell().getNeighbor(dx, dy);
+        if (nextCell.getActor() != null){
+                Actor enemy = nextCell.getActor();
+                calculateAttack(enemy);
+            }
+        else if(nextCell.getTileName().equals("closedBlueDoor")){
+            openDoor(dx, dy);
         }
     }
-    private final LinkedList<Item> items = new LinkedList<>();
     public void addToInventory() {
         items.add(getCell().getItem());
         getCell().setItem(null);
@@ -54,9 +58,6 @@ public class Player extends Actor {
         super.move(dx, dy);
         if (getCell().getItem() != null) {
             pickUpItems();
-        }
-        else if (Objects.equals(getCell().getNeighbor(dx, dy).getTileName(), "closedBlueDoor")) {
-            openDoor(dx, dy);
         }
     }
 

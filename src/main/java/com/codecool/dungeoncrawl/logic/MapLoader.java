@@ -67,6 +67,9 @@ public class MapLoader  {
                             cell.setType(CellType.FLOOR);
                             map.setSword(new Sword(cell));
                             break;
+                        case 'D':
+                            cell.setType(CellType.CLOSEDBLUEDOOR);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

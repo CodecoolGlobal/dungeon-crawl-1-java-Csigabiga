@@ -6,6 +6,8 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 public class Player extends Actor {
@@ -24,7 +26,7 @@ public class Player extends Actor {
 
         }
     }
-    private final ArrayList<Item> items = new ArrayList<>();
+    private final LinkedList<Item> items = new LinkedList<>();
     public void addToInventory() {
         items.add(getCell().getItem());
         getCell().setItem(null);
@@ -40,6 +42,13 @@ public class Player extends Actor {
         if (getCell().getItem() != null) {
             if (getCell().getItem().getClass().getSimpleName().equals("Sword") || getCell().getItem().getClass().getSimpleName().equals("Key")) {
                 Main.setButtonDisabledStatus(false);
+            }
+        }
+        else if (Objects.equals(getCell().getNeighbor(dx+1, dy).getTileName(), "closedBlueDoor")) {
+            for (Item item: items) {
+                if (item.getClass().getSimpleName().equals("Key")) {
+                    getCell().getNeighbor(dx+1, dy).setType(CellType.OPENBLUEDOOR);
+                }
             }
         }
     }

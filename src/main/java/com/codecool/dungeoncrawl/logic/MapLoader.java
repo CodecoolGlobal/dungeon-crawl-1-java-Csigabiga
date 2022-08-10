@@ -1,5 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.items.Key;
+import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.actors.Player;
 import com.codecool.dungeoncrawl.actors.Skeleton;
 
@@ -38,6 +40,14 @@ public class MapLoader {
                         case '@':
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));
+                            break;
+                        case 'k':
+                            cell.setType(CellType.FLOOR);
+                            map.setKey(new Key(cell));
+                            break;
+                        case 'x':
+                            cell.setType(CellType.FLOOR);
+                            map.setSword(new Sword(cell));
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

@@ -4,7 +4,7 @@ import com.codecool.dungeoncrawl.logic.monsterlogic.MonsterCycle;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.util.Style;
+import com.codecool.dungeoncrawl.utils.Style;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;

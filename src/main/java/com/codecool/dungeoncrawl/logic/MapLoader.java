@@ -4,9 +4,7 @@ import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.actors.Player;
 import com.codecool.dungeoncrawl.actors.Skeleton;
-import com.codecool.dungeoncrawl.actors.StaticMob;
-import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.actors.Bomber;
 
 import java.io.InputStream;
 import java.util.Random;
@@ -55,20 +53,12 @@ public class MapLoader  {
                             randomFloorTile(cell);
                             break;
                         case 's':
-                            randomFloorTile(cell);
-                            new Skeleton(cell);
-                            break;
-                        case '@':
-                            randomFloorTile(cell);
-                            map.setPlayer(new Player(cell));
+                            cell.setType(CellType.FLOOR);
+                            map.appendSkeleton(new Skeleton(cell, 6));
                             break;
                         case 'k':
                             cell.setType(CellType.FLOOR);
-                            map.appendSkeletons(new Skeleton(cell, 6));
-                            break;
-                        case 'k':
-                            cell.setType(CellType.FLOOR);
-                            map.appendStaticMob(new StaticMob(cell, 3));
+                            map.appendBomber(new Bomber(cell, 3));
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
@@ -86,5 +76,4 @@ public class MapLoader  {
         }
         return map;
     }
-
 }

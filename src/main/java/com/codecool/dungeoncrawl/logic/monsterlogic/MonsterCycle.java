@@ -1,29 +1,33 @@
-package com.codecool.dungeoncrawl.logic;
+package com.codecool.dungeoncrawl.logic.monsterlogic;
 
+import com.codecool.dungeoncrawl.logic.GameMap;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.util.Duration;
 
+import java.util.Random;
 
-public class MobTimer {
 
+public class MonsterCycle {
     private final Timeline timeline;
-    private Runnable skeletonMethod;
+    GameMap map;
+    Runnable refresh;
 
-    private Runnable staticMobMethod;
 
 
-    public MobTimer(Runnable skeletonMethod, Runnable staticMobMethod) {
-        this.skeletonMethod = skeletonMethod;
-        this.staticMobMethod = staticMobMethod;
+    public MonsterCycle(GameMap map, Runnable refresh) {
+        this.map = map;
+        this.refresh = refresh;
         this.timeline = new Timeline(new KeyFrame(Duration.millis(500), this::doStep));
         this.timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
     private void doStep(ActionEvent actionEvent) {
-        skeletonMethod.run();
-        staticMobMethod.run();
+        map.skeletonRound();
+        map.bomberRound();
+        refresh.run();
+
     }
 
     public void start() {

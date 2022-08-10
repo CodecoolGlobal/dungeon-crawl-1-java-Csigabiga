@@ -26,7 +26,8 @@ public class Main extends Application {
     Random random = new Random();
     GameMap map01 = MapLoader.loadMap("/maps/map01.txt");
     GameMap map02 = MapLoader.loadMap("/maps/map02.txt");
-    GameMap currentMap = map02;
+    GameMap map03 = MapLoader.loadMap("/maps/map03.txt");
+    GameMap currentMap = map03;
     Canvas canvas = new Canvas(
             currentMap.getWidth() * Tiles.TILE_WIDTH,
             currentMap.getHeight() * Tiles.TILE_WIDTH);

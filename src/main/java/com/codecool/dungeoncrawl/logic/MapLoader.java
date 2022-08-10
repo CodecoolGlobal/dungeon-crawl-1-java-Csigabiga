@@ -81,7 +81,7 @@ public class MapLoader  {
                         case '<':
                             randomTile(cell, CellType.ORANGEWALL2, CellType.ORANGEWALLBROKEN, CellType.ORANGEWALL);
                             break;
-                        case '3':
+                        case 'M':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             map.appendThreeMusketeers(new ThreeMusketeers(cell, 10, 4, 3));
                             break;

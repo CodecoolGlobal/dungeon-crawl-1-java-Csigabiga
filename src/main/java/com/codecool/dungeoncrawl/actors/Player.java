@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.actors;
 
 import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
 import javax.swing.*;
@@ -47,7 +48,6 @@ public class Player extends Actor {
 
     public ArrayList<Item> inventory () {return items;}
 
-    private final LinkedList<Item> items = new LinkedList<>();
     public void addToInventory() {
         items.add(getCell().getItem());
         getCell().setItem(null);
@@ -78,10 +78,10 @@ public class Player extends Actor {
         if (getCell().getItem() != null) {
             if (getCell().getItem().getClass().getSimpleName().equals("Sword") || getCell().getItem().getClass().getSimpleName().equals("Key") || getCell().getItem().getTileName().equals("shield")) {
                 Main.setButtonDisabledStatus(false);
-            pickUpItems();
-        }
-        else if (Objects.equals(getCell().getNeighbor(dx, dy).getTileName(), "closedBlueDoor")) {
-            openDoor(dx, dy);
+                pickUpItems();
+            } else if (Objects.equals(getCell().getNeighbor(dx, dy).getTileName(), "closedBlueDoor")) {
+                openDoor(dx, dy);
+            }
         }
     }
 

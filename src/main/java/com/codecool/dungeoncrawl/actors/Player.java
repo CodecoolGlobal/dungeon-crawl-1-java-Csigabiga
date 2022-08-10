@@ -19,7 +19,7 @@ public class Player extends Actor {
 
     private final LinkedList<Item> items = new LinkedList<>();
 
-    public void interact(int dx, int dy){
+    public String interact(int dx, int dy){
         Cell nextCell = this.getCell().getNeighbor(dx, dy);
         if (nextCell.getActor() != null){
                 Actor enemy = nextCell.getActor();
@@ -27,7 +27,12 @@ public class Player extends Actor {
             }
         else if(nextCell.getTileName().equals("closedBlueDoor")){
             openDoor(dx, dy);
+        }else if(nextCell.getTileName().equals("stairDown")){
+            return "nextLevel";
+        } else if (nextCell.getTileName().equals("stairUp")) {
+            return "previousLevel";
         }
+        return null;
     }
     public void addToInventory() {
         items.add(getCell().getItem());

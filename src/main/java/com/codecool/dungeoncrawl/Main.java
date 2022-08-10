@@ -102,19 +102,19 @@ public class Main extends Application {
                 refresh();
                 break;
             case W:
-                currentMap.getPlayer().attack(0,-1);
+                currentMap.getPlayer().interact(0,-1);
                 refresh();
                 break;
             case S:
-                currentMap.getPlayer().attack(0,1);
+                currentMap.getPlayer().interact(0,1);
                 refresh();
                 break;
             case A:
-                currentMap.getPlayer().attack(-1,0);
+                currentMap.getPlayer().interact(-1,0);
                 refresh();
                 break;
             case D:
-                currentMap.getPlayer().attack(1,0);
+                currentMap.getPlayer().interact(1,0);
                 refresh();
                 break;
             case L:

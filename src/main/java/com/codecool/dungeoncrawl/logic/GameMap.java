@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic;
 import com.codecool.dungeoncrawl.actors.*;
 import com.codecool.dungeoncrawl.logic.items.Box;
 import com.codecool.dungeoncrawl.logic.items.Key;
+import com.codecool.dungeoncrawl.logic.items.Shield;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 
 import java.util.*;
@@ -18,6 +19,7 @@ public class GameMap {
     private Player player;
     private Key key;
     private Sword sword;
+    private Shield shield;
 
     private Box box;
 
@@ -73,6 +75,8 @@ public class GameMap {
     public void setSword(Sword sword) {
         this.sword = sword;
     }
+    public void setShield(Shield shield) {this.shield = shield;}
+    public Shield getShield() { return shield;}
 
 
 

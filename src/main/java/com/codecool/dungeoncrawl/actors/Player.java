@@ -12,6 +12,10 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 public class Player extends Actor {
+
+    private final ArrayList<Item> items = new ArrayList<>();
+    private int bonusAttack = 0;
+    private int bonusShield = 0;
     public Player(Cell cell, int health, int attackPower, int defensePower) {
         super(cell, health, attackPower, defensePower);
     }
@@ -34,6 +38,28 @@ public class Player extends Actor {
         }
         return null;
     }
+
+
+
+    @Override
+    public void setHealth(int damage) {
+        super.setHealth(damage-bonusShield);
+    }
+
+    public void checkBonuses() {
+        for (Item item:
+             items) {
+            if (item.getTileName().equals("sword")) {
+                this.bonusAttack = item.getBonus();
+            } else if (item.getTileName().equals("shield")) {
+                this.bonusShield = item.getBonus();
+            }
+        }
+    }
+
+
+    public ArrayList<Item> inventory () {return items;}
+
     public void addToInventory() {
         items.add(getCell().getItem());
         getCell().setItem(null);
@@ -62,8 +88,9 @@ public class Player extends Actor {
     public void move(int dx, int dy) {
         super.move(dx, dy);
         if (getCell().getItem() != null) {
-            pickUpItems();
-        }
+            if (getCell().getItem().getClass().getSimpleName().equals("Sword") || getCell().getItem().getClass().getSimpleName().equals("Key") || getCell().getItem().getTileName().equals("shield")) {
+                Main.setButtonDisabledStatus(false);
+                pickUpItems();
     }
 
     public void moveBox(int dx, int dy, char key) {
@@ -80,7 +107,7 @@ public class Player extends Actor {
     }
 
     public void calculateAttack(Actor enemy){
-        enemy.setHealth(getAttackPower());
+        enemy.setHealth(getAttackPower()+bonusAttack);
     }
 
     public String display() {

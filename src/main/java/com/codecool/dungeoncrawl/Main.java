@@ -66,6 +66,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+        pickUpButton.setFocusTraversable(false);
     }
 
     public static void setButtonDisabledStatus(boolean status) {
@@ -76,14 +77,18 @@ public class Main extends Application {
         pickUpButton.setOnAction(value -> {
             setButtonDisabledStatus(true);
             currentMap.getPlayer().addToInventory();
+            currentMap.getPlayer().checkBonuses();
         });
     }
+
+
 
     private void onKeyPressed(KeyEvent keyEvent) {
         if (!start) {
             start = true;
             monsterCycle.start();
         }
+        setButtonDisabledStatus(true);
         switch (keyEvent.getCode()) {
             case UP:
                 currentMap.getPlayer().move(0, -1);

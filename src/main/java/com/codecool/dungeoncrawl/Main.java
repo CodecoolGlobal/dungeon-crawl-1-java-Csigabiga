@@ -132,21 +132,33 @@ public class Main extends Application {
                 refresh();
                 break;
             case W:
-                map.getPlayer().attack(0,-1);
+                currentMap.getPlayer().attack(0,-1);
                 refresh();
                 break;
             case S:
-                map.getPlayer().attack(0,1);
+                currentMap.getPlayer().attack(0,1);
                 refresh();
                 break;
             case A:
-                map.getPlayer().attack(-1,0);
+                currentMap.getPlayer().attack(-1,0);
+
                 refresh();
                 break;
             case D:
-                map.getPlayer().attack(1,0);
+                currentMap.getPlayer().attack(1,0);
                 refresh();
                 break;
+            case L:
+                if (map01.equals(currentMap)) {
+                    currentMap = map02;
+                    refresh();
+                } else if (map02.equals(currentMap)) {
+                    currentMap = map03;
+                    refresh();
+                } else if (map03.equals(currentMap)) {
+                    currentMap = map01;
+                    refresh();
+                }
         }
     }
 

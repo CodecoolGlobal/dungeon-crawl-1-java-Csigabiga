@@ -157,18 +157,23 @@ public class Main extends Application {
        refresh();
        if (levelCheck.equals("nextLevel")){
            if (map01.equals(currentMap)) {
-               currentMap = map02;
-               monsterCycle = new MonsterCycle(currentMap, this::refresh);
-               refresh();
+               changeLevel(map01, map02, 20, 18);
            } else if (map02.equals(currentMap)) {
-               currentMap = map03;
-               monsterCycle = new MonsterCycle(currentMap, this::refresh);
-               refresh();
+               changeLevel(map02,map03,5,18);
            } else if (map03.equals(currentMap)) {
-               currentMap = map01;
-               monsterCycle = new MonsterCycle(currentMap, this::refresh);
-               refresh();
+               //TODO implement something map04 or something
+//               changeLevel(map03, map01, 20, 18);
            }
         }
     }
+    public void changeLevel(GameMap previousMap, GameMap nextMap, int x, int y){
+        monsterCycle.stop();
+        currentMap = nextMap;
+        monsterCycle = new MonsterCycle(currentMap, this::refresh);
+        nextMap.getCell(x, y).setActor(previousMap.getPlayer());
+        nextMap.setPlayer(previousMap.getPlayer());
+        nextMap.getPlayer().setCell(nextMap.getCell(x, y));
+        refresh();
+    }
+
 }

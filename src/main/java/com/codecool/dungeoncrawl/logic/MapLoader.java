@@ -72,8 +72,17 @@ public class MapLoader {
                         case 'L':
                             cell.setType(CellType.STAIRUP);
                             break;
+                        case '\\':
+                            cell.setType(CellType.BLUESWITCHLEFT);
+                            break;
                         case '>':
                             cell.setType(CellType.ORANGEWALL);
+                            break;
+                        case '&':
+                            cell.setType(CellType.TRAPROUTETILE);
+                            break;
+                        case ';':
+                            cell.setType(CellType.BLUESWITCHLOCK);
                             break;
                         case '<':
                             randomTile(cell, CellType.ORANGEWALL2, CellType.ORANGEWALLBROKEN, CellType.ORANGEWALL);

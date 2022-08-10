@@ -70,6 +70,12 @@ public class MapLoader  {
                         case 'D':
                             cell.setType(CellType.CLOSEDBLUEDOOR);
                             break;
+                        case 'B':
+                            cell.setType(CellType.BOX);
+                            break;
+                        case 'T':
+                            cell.setType(CellType.TRIGGER);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

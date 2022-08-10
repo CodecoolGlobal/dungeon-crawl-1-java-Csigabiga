@@ -9,7 +9,9 @@ public enum CellType {
     WALL("wall"),
     KEY("key"),
     CLOSEDBLUEDOOR("closedBlueDoor"),
-    OPENBLUEDOOR("openedBlueDoor");
+    OPENBLUEDOOR("openedBlueDoor"),
+    TRIGGER("trigger"),
+    BOX("box");
 
     private final String tileName;
 

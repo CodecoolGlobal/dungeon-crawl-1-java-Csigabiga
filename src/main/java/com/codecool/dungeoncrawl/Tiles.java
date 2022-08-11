@@ -59,6 +59,9 @@ public class Tiles {
         tileMap.put("numberNine", new Tile(28,29));
         tileMap.put("infoBarShield", new Tile(7,26));
         tileMap.put("infoBarSword", new Tile(2,29));
+        tileMap.put("infoBarCoins", new Tile(9,26));
+        tileMap.put("infoBarBag", new Tile(15,26));
+        tileMap.put("doubleDot", new Tile(29,29));
 
     }
 

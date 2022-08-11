@@ -13,12 +13,12 @@ import java.util.StringJoiner;
 
 public class Player extends Actor {
 
-    private final ArrayList<Item> items = new ArrayList<>();
     private int bonusAttack = 0;
     private int bonusShield = 0;
     public Player(Cell cell, int health, int attackPower, int defensePower) {
         super(cell, health, attackPower, defensePower);
     }
+    private final ArrayList<Item> items = new ArrayList<>();
 
     public String interact(int dx, int dy){
         Cell nextCell = this.getCell().getNeighbor(dx, dy);
@@ -94,7 +94,7 @@ public class Player extends Actor {
         }
     }
 
-    public void moveBox(int dx, int dy, char key) {
+/*    public void moveBox(int dx, int dy, char key) {
         if (getCell().getNeighbor(dx, dy).getTileName().equals("box")) {
             int boxPositionX = getX();
             int boxPositionY = getY();
@@ -105,13 +105,13 @@ public class Player extends Actor {
                 boxPositionY = getY() - 1;
             }
         }
-    }
+    }*/
 
     public void calculateAttack(Actor enemy){
         enemy.setHealth(getAttackPower()+bonusAttack);
     }
 
-    public String display() {
+    public String displayItems() {
         StringJoiner stringJoiner = new StringJoiner("\n");
         for (Item item: items) {
             stringJoiner.add(item.getClass().getSimpleName());

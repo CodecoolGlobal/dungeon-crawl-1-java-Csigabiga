@@ -162,7 +162,7 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + currentMap.getPlayer().getHealth());
-        inventoryLabel.setText(currentMap.getPlayer().display());
+        inventoryLabel.setText(currentMap.getPlayer().displayItems());
     }
 
     public void playerInteraction(int dx, int dy){

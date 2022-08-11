@@ -28,6 +28,9 @@ public enum CellType {
     INFOBARMIDDLE("infoBarMiddle"),
     INFOBARSHIELD("infoBarShield"),
     INFOBARSWORD("infoBarSword"),
+    INFOBARCOINS("infoBarCoins"),
+    INFOBARBAG("infoBarBag"),
+    DOUBLEDOT("doubleDot"),
     HEART("heart"),
     TRIGGER("trigger"),
     BOX("box");

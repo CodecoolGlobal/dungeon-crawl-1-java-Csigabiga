@@ -20,14 +20,25 @@ public class Player extends Actor {
         super(cell, health, attackPower, defensePower);
     }
 
-    public void attack(int dx, int dy){
-        Cell attackCell = getCell().getNeighbor(dx, dy);
-        if(attackCell.getActor() != null){
-            Actor enemy = attackCell.getActor();
-            calculateAttack(enemy);
-
+    public String interact(int dx, int dy){
+        Cell nextCell = this.getCell().getNeighbor(dx, dy);
+        if (nextCell.getActor() != null){
+                Actor enemy = nextCell.getActor();
+                calculateAttack(enemy);
+            }
+        else if(nextCell.getTileName().equals("closedBlueDoor")){
+            openDoor(dx, dy);
+        }else if(nextCell.getTileName().equals("stairDown")){
+            return "nextLevel";
+        } else if (nextCell.getTileName().equals("stairUp")) {
+            return "previousLevel";
+        }else if (nextCell.getTileName().matches("blueSwitchLeft|blueSwitchRight")) {
+            return "blueSwitch";
         }
+        return null;
     }
+
+
 
     @Override
     public void setHealth(int damage) {
@@ -79,8 +90,6 @@ public class Player extends Actor {
             if (getCell().getItem().getClass().getSimpleName().equals("Sword") || getCell().getItem().getClass().getSimpleName().equals("Key") || getCell().getItem().getTileName().equals("shield")) {
                 Main.setButtonDisabledStatus(false);
                 pickUpItems();
-            } else if (Objects.equals(getCell().getNeighbor(dx, dy).getTileName(), "closedBlueDoor")) {
-                openDoor(dx, dy);
             }
         }
     }

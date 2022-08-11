@@ -45,7 +45,7 @@ public class MapLoader  {
                             break;
                         case 's':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
-                            map.appendSkeleton(new Skeleton(cell, 6, 3, 2));
+                            map.appendSkeleton(new Skeleton(cell, 6, 3, 0));
                             break;
                         case '@':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
@@ -63,11 +63,20 @@ public class MapLoader  {
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             map.setSword(new Sword(cell, 3));
                             break;
+                        case 'D':
+                            cell.setType(CellType.CLOSEDBLUEDOOR);
+                            break;
                         case 'l':
                             cell.setType(CellType.STAIRDOWN);
                             break;
+                        case 'd':
+                            cell.setType(CellType.CLOSEDBLUEDOOR);
+                            break;
                         case 'L':
                             cell.setType(CellType.STAIRUP);
+                            break;
+                        case '\\':
+                            cell.setType(CellType.BLUESWITCHLEFT);
                             break;
                         case '!':
                             cell.setType(CellType.HEART);
@@ -77,6 +86,12 @@ public class MapLoader  {
                             break;
                         case '>':
                             cell.setType(CellType.ORANGEWALL);
+                            break;
+                        case '&':
+                            cell.setType(CellType.TRAPROUTETILE);
+                            break;
+                        case ';':
+                            cell.setType(CellType.BLUESWITCHLOCK);
                             break;
                         case '?':
                             cell.setType(CellType.INFOBARSHIELD);

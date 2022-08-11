@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 public abstract class Item implements Drawable {
     private final Cell cell;
     private int bonusStat;
+    private boolean toBeDeleted = false;
 
     public Item(Cell cell, int bonusStat) {
         this.cell = cell;

@@ -33,7 +33,14 @@ public abstract class Actor implements Drawable {
         return health;
     }
 
-    public void setHealth(int damage) {this.health = health - damage + defensePower;}
+    public void setHealth(int damage) {
+        if(health - damage + defensePower <=0){
+            this.health=0;
+        }
+        else{
+            this.health = health - damage + defensePower;
+        }
+    }
 
     public Cell getCell() {
         return cell;

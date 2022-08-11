@@ -152,19 +152,7 @@ public class Main extends Application {
                 else if(cell.getItem() != null) {
                     Tiles.drawTile(context, cell.getItem(), x, y);
                 }
-                else if (cell.getTileName().equals("heart")){
-                    Tiles.drawTile(context, cell, x, y);
-                    int playerHealth = currentMap.getPlayer().getHealth();
-                    if (playerHealth < 10){
-                        currentMap.getCell(x + 1, y).setType(CellType.NUMBER0);
-                        currentMap.getCell(x + 2, y).setType(CellType.values()[playerHealth%10]);
-                    }
-                    else{
-                        currentMap.getCell(x + 1, y).setType(CellType.NUMBER1);
-                        currentMap.getCell(x + 2, y).setType(CellType.NUMBER0);
-
-                    }
-                }
+                else if (cell.getTileName().matches("heart|infoBarShield|infoBarSword")) updateStatusBar(x, y, cell);
                 else {
                     Tiles.drawTile(context, cell, x, y);
                 }
@@ -172,5 +160,29 @@ public class Main extends Application {
         }
         healthLabel.setText("" + currentMap.getPlayer().getHealth());
         inventoryLabel.setText(currentMap.getPlayer().display());
+    }
+
+    private void updateStatusBar(int x, int y, Cell cell) {
+        Tiles.drawTile(context, cell, x, y);
+        if(cell.getTileName().equals("heart")) {
+            int playerHealth = currentMap.getPlayer().getHealth();
+            if (playerHealth < 10) {
+                currentMap.getCell(x + 1, y).setType(CellType.NUMBER0);
+                currentMap.getCell(x + 2, y).setType(CellType.values()[playerHealth % 10]);
+            } else {
+                currentMap.getCell(x + 1, y).setType(CellType.NUMBER1);
+                currentMap.getCell(x + 2, y).setType(CellType.NUMBER0);
+            }
+        }
+        else if(cell.getTileName().equals("infoBarShield")){
+            int playerDefensePower = currentMap.getPlayer().getDefensePower();
+            currentMap.getCell(x + 1, y).setType(CellType.NUMBER0);
+            currentMap.getCell(x + 2, y).setType(CellType.values()[playerDefensePower % 10]);
+        }
+        else if (cell.getTileName().equals("infoBarSword")){
+            int playerAttackPower = currentMap.getPlayer().getAttackPower();
+            currentMap.getCell(x + 1, y).setType(CellType.NUMBER0);
+            currentMap.getCell(x + 2, y).setType(CellType.values()[playerAttackPower % 10]);
+        }
     }
 }

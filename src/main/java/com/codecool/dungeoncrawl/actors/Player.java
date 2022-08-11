@@ -91,7 +91,7 @@ public class Player extends Actor {
     public void move(int dx, int dy) {
         super.move(dx, dy);
         if (getCell().getItem() != null) {
-            if (getCell().getItem().getClass().getSimpleName().matches("Sword|Key|shield")) {
+            if (getCell().getItem().getClass().getSimpleName().matches("Sword|Key|Shield")) {
                 Main.setButtonDisabledStatus(false);
                 pickUpItems();
             }

@@ -20,7 +20,6 @@ public enum CellType {
     ORANGEWALL("orangeWall"),
     ORANGEWALL2("orangeWall2"),
     ORANGEWALLBROKEN("orangeWallBroken"),
-    KEY("key"),
     STAIRUP("stairUp"),
     STAIRDOWN("stairDown"),
     CLOSEDBLUEDOOR("closedBlueDoor"),

@@ -199,6 +199,7 @@ public class Main extends Application {
     public void changeLevel(GameMap previousMap, GameMap nextMap, int x, int y){
         monsterCycle.stop();
         currentMap = nextMap;
+        start = false;
         monsterCycle = new MonsterCycle(currentMap, this::refresh);
         nextMap.getCell(x, y).setActor(previousMap.getPlayer());
         nextMap.setPlayer(previousMap.getPlayer());

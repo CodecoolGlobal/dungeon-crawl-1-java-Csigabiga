@@ -227,12 +227,12 @@ public class Main extends Application {
             }
         }
         else if(cell.getTileName().equals("infoBarShield")){
-            int playerDefensePower = currentMap.getPlayer().getDefensePower();
+            int playerDefensePower = currentMap.getPlayer().getDefensePower() + currentMap.getPlayer().getBonusShield();
             currentMap.getCell(x + 1, y).setType(CellType.NUMBER0);
             currentMap.getCell(x + 2, y).setType(CellType.values()[playerDefensePower % 10]);
         }
         else if (cell.getTileName().equals("infoBarSword")){
-            int playerAttackPower = currentMap.getPlayer().getAttackPower();
+            int playerAttackPower = currentMap.getPlayer().getAttackPower() + currentMap.getPlayer().getBonusAttack();
             currentMap.getCell(x + 1, y).setType(CellType.NUMBER0);
             currentMap.getCell(x + 2, y).setType(CellType.values()[playerAttackPower % 10]);
         }

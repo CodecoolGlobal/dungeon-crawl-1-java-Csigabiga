@@ -152,7 +152,7 @@ public class Main extends Application {
                 else if(cell.getItem() != null) {
                     Tiles.drawTile(context, cell.getItem(), x, y);
                 }
-                else if (cell.getTileName().matches("heart|infoBarShield|infoBarSword")) updateStatusBar(x, y, cell);
+                else if (cell.getTileName().matches("heart|infoBarShield|infoBarSword|infoBarCoins")) updateStatusBar(x, y, cell);
                 else {
                     Tiles.drawTile(context, cell, x, y);
                 }

@@ -18,4 +18,13 @@ public abstract class Item implements Drawable {
         return cell;
     }
     public int getBonus() {return bonusStat;}
+
+    public boolean isToBeDeleted() {
+        return toBeDeleted;
+    }
+    public void setToBeDeleted(boolean toBeDeleted) {
+        this.toBeDeleted = toBeDeleted;
+
+
+    }
 }

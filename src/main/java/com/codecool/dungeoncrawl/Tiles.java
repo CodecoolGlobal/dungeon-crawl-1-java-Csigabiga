@@ -57,6 +57,8 @@ public class Tiles {
         tileMap.put("numberSeven", new Tile(26,29));
         tileMap.put("numberEight", new Tile(27,29));
         tileMap.put("numberNine", new Tile(28,29));
+        tileMap.put("infoBarShield", new Tile(7,26));
+        tileMap.put("infoBarSword", new Tile(2,29));
 
     }
 

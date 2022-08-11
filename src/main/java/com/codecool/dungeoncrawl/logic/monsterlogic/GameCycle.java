@@ -3,7 +3,6 @@ package com.codecool.dungeoncrawl.logic.monsterlogic;
 import com.codecool.dungeoncrawl.actors.Mob;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.items.Shield;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;

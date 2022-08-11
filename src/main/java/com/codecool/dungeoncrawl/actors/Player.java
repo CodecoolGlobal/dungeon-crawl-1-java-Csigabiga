@@ -4,12 +4,7 @@ import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.items.Key;
-
-import javax.swing.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Objects;
 import java.util.StringJoiner;
 
 public class Player extends Actor {

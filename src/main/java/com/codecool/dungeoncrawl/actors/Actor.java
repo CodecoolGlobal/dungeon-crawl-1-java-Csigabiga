@@ -1,7 +1,6 @@
 package com.codecool.dungeoncrawl.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
 public abstract class Actor implements Drawable {
@@ -64,13 +63,7 @@ public abstract class Actor implements Drawable {
         return cell.getY();
     }
 
-    public void setDefensePower(int defensePower) {this.defensePower = defensePower;}
-
     public int getDefensePower() {return defensePower;}
-
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
-    }
 
     public int getAttackPower() {
         return attackPower;

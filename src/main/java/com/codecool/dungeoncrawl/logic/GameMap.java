@@ -13,16 +13,7 @@ public class GameMap {
     private final List<Item> items;
     private Player player;
 
-    private Box box;
-
-    private  int mapNumber = 0;
-
-    public int getMapNumber() {
-        return mapNumber;
-    }
-
     public GameMap(int width, int height, CellType defaultCellType) {
-        this.mapNumber++;
         this.width = width;
         this.height = height;
         this.mobs = new ArrayList<>();

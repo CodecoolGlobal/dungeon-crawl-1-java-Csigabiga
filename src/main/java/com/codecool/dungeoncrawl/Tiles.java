@@ -66,7 +66,6 @@ public class Tiles {
         tileMap.put("infoBarCoins", new Tile(9,26));
         tileMap.put("infoBarBag", new Tile(15,26));
         tileMap.put("doubleDot", new Tile(29,29));
-
         tileMap.put("closedBlueDoor", new Tile(1, 9));
         tileMap.put("openedBlueDoor", new Tile(2, 9));
         tileMap.put("trigger", new Tile(7, 13));

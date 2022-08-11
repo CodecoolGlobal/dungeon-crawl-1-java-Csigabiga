@@ -39,6 +39,12 @@ public abstract class Actor implements Drawable {
         return cell;
     }
 
+    public void heal(int hp) {
+        if (this.health < 10) {
+            this.health += hp;
+        }
+    }
+
     public int getX() {
         return cell.getX();
     }

@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.actors.ThreeMusketeers;
 import com.codecool.dungeoncrawl.logic.items.Key;
+import com.codecool.dungeoncrawl.logic.items.Shield;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.actors.Player;
 import com.codecool.dungeoncrawl.actors.Skeleton;
@@ -52,7 +53,7 @@ public class MapLoader  {
                             break;
                         case 'k':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
-                            map.setKey(new Key(cell));
+                            map.setKey(new Key(cell, 0));
                             break;
                         case 'b':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
@@ -60,7 +61,7 @@ public class MapLoader  {
                             break;
                         case 'x':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
-                            map.setSword(new Sword(cell));
+                            map.setSword(new Sword(cell, 3));
                             break;
                         case 'D':
                             cell.setType(CellType.CLOSEDBLUEDOOR);
@@ -80,6 +81,10 @@ public class MapLoader  {
                         case '3':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             map.appendThreeMusketeers(new ThreeMusketeers(cell, 10, 4, 3));
+                            break;
+                        case 'p':
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
+                            map.setShield(new Shield(cell, 1, 0.5));
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

@@ -79,9 +79,12 @@ public class Player extends Actor {
         for (Item item: items) {
             if (item.getClass().getSimpleName().equals("Key")) {
                 getCell().getNeighbor(dx, dy).setType(CellType.OPENBLUEDOOR);
-                items.remove(item);
+                item.setToBeDeleted(true);
+
+
             }
         }
+        items.removeIf(Item::isToBeDeleted);
     }
 
     @Override

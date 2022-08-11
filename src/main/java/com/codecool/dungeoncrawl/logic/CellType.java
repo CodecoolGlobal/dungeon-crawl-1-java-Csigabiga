@@ -16,7 +16,11 @@ public enum CellType {
     CLOSEDBLUEDOOR("closedBlueDoor"),
     OPENBLUEDOOR("openedBlueDoor"),
     TRIGGER("trigger"),
-    BOX("box");
+    TRAPROUTETILE("trapRouteTile"),
+    BOX("box"),
+    BLUESWITCHLEFT("blueSwitchLeft"),
+    BLUESWITCHLOCK("blueSwitchLock"),
+    BLUESWITCHRIGHT("blueSwitchRight");
 
     private final String tileName;
 

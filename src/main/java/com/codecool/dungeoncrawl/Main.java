@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.monsterlogic.MonsterCycle;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
@@ -17,6 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import java.util.Objects;
 
 public class Main extends Application {
 
@@ -107,20 +109,18 @@ public class Main extends Application {
                 refresh();
                 break;
             case W:
-                currentMap.getPlayer().attack(0,-1);
-                refresh();
+                playerInteraction(0, -1);
                 break;
             case S:
-                currentMap.getPlayer().attack(0,1);
-                refresh();
+                playerInteraction(0, 1);
+
                 break;
             case A:
-                currentMap.getPlayer().attack(-1,0);
-                refresh();
+                playerInteraction(-1, 0);
+
                 break;
             case D:
-                currentMap.getPlayer().attack(1,0);
-                refresh();
+                playerInteraction(1, 0);
                 break;
             case L:
                 if (map01.equals(currentMap)) {
@@ -158,4 +158,53 @@ public class Main extends Application {
         healthLabel.setText("" + currentMap.getPlayer().getHealth());
         inventoryLabel.setText(currentMap.getPlayer().display());
     }
+
+    public void playerInteraction(int dx, int dy){
+       String levelCheck =  currentMap.getPlayer().interact(dx, dy);
+       refresh();
+       if (Objects.equals(levelCheck, "nextLevel")){
+           if (map01.equals(currentMap)) {
+               changeLevel(map01, map02, 20, 18);
+           } else if (map02.equals(currentMap)) {
+               changeLevel(map02,map03,5,18);
+           } else if (map03.equals(currentMap)) {
+               //TODO implement something map04 or something
+//               changeLevel(map03, map01, 20, 18);
+           }
+        }else if (Objects.equals(levelCheck, "blueSwitch")){
+           Cell switchStance = currentMap.getPlayer().getCell().getNeighbor(dx, dy);
+           if (switchStance.getTileName().equals("blueSwitchLeft")){
+               //switch change
+               currentMap.getCell(19,12).setType(CellType.BLUESWITCHRIGHT);
+               currentMap.getCell(19,7).setType(CellType.BLUESWITCHRIGHT);
+               // floor change
+               currentMap.getCell(20,10).setType(CellType.FLOOR1);
+               currentMap.getCell(21,10).setType(CellType.FLOOR1);
+               currentMap.getCell(20,9).setType(CellType.FLOOR1);
+               currentMap.getCell(21,9).setType(CellType.FLOOR1);
+               refresh();
+           }else if(switchStance.getTileName().equals("blueSwitchRight")){
+               //switch change
+               currentMap.getCell(19,12).setType(CellType.BLUESWITCHLEFT);
+               currentMap.getCell(19,7).setType(CellType.BLUESWITCHLEFT);
+               // floor change
+               currentMap.getCell(20,10).setType(CellType.BLUESWITCHLOCK);
+               currentMap.getCell(21,10).setType(CellType.BLUESWITCHLOCK);
+               currentMap.getCell(20,9).setType(CellType.BLUESWITCHLOCK);
+               currentMap.getCell(21,9).setType(CellType.BLUESWITCHLOCK);
+               refresh();
+           }
+       }
+    }
+    public void changeLevel(GameMap previousMap, GameMap nextMap, int x, int y){
+        monsterCycle.stop();
+        currentMap = nextMap;
+        start = false;
+        monsterCycle = new MonsterCycle(currentMap, this::refresh);
+        nextMap.getCell(x, y).setActor(previousMap.getPlayer());
+        nextMap.setPlayer(previousMap.getPlayer());
+        nextMap.getPlayer().setCell(nextMap.getCell(x, y));
+        refresh();
+    }
+
 }

@@ -1,10 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.actors.*;
-import com.codecool.dungeoncrawl.logic.items.Box;
-import com.codecool.dungeoncrawl.logic.items.Key;
-import com.codecool.dungeoncrawl.logic.items.Shield;
-import com.codecool.dungeoncrawl.logic.items.Sword;
+import com.codecool.dungeoncrawl.logic.items.*;
 
 import java.util.*;
 
@@ -13,10 +10,8 @@ public class GameMap {
     private final int height;
     private final Cell[][] cells;
     private final List<Mob> mobs;
+    private final List<Item> items;
     private Player player;
-    private Key blueKey;
-    private Sword basicSword;
-    private Shield shield;
 
     private Box box;
 
@@ -31,6 +26,7 @@ public class GameMap {
         this.width = width;
         this.height = height;
         this.mobs = new ArrayList<>();
+        this.items = new ArrayList<>();
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -52,28 +48,13 @@ public class GameMap {
     public List<Mob> getMobs() {return mobs;}
 
 
+    public void appendItems(Item item) {items.add(item);}
+    public void removeItem(Item item) {items.remove(item);}
+
+
     public Player getPlayer() {
         return player;
     }
-
-    public Key getKey() {
-        return blueKey;
-    }
-
-    public void setKey(Key key) {
-        this.blueKey = key;
-    }
-
-    public Sword getSword() {
-        return basicSword;
-    }
-
-    public void setSword(Sword sword) {
-        this.basicSword = sword;
-    }
-    public void setShield(Shield shield) {this.shield = shield;}
-    public Shield getShield() { return shield;}
-
 
 
     public int getWidth() {

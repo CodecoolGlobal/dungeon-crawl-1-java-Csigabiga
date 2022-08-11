@@ -3,8 +3,8 @@ package com.codecool.dungeoncrawl.logic.items;
 import com.codecool.dungeoncrawl.logic.Cell;
 
 public class Sword extends Item {
-    public Sword(Cell cell, int bonusStat) {
-        super(cell, bonusStat);
+    public Sword(Cell cell, String name, int bonusStat, double specialBonus) {
+        super(cell, name, bonusStat, specialBonus);
     }
 
     @Override

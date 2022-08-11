@@ -82,6 +82,7 @@ public class Main extends Application {
             setButtonDisabledStatus(true);
             currentMap.getPlayer().addToInventory();
             currentMap.getPlayer().checkBonuses();
+            currentMap.removeItem(currentMap.getPlayer().getCell().getItem());
         });
     }
 

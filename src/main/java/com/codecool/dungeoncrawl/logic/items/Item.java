@@ -5,12 +5,17 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 
 public abstract class Item implements Drawable {
     private final Cell cell;
+    private String name;
     private int bonusStat;
+
+    private double specialBonus;
     private boolean toBeDeleted = false;
 
-    public Item(Cell cell, int bonusStat) {
+    public Item(Cell cell, String name, int bonusStat, double specialBonus) {
         this.cell = cell;
+        this.name = name;
         this.bonusStat = bonusStat;
+        this.specialBonus = specialBonus;
         this.cell.setItem(this);
     }
 
@@ -19,12 +24,11 @@ public abstract class Item implements Drawable {
     }
     public int getBonus() {return bonusStat;}
 
+    public double getSpecialBonus() {return specialBonus;}
     public boolean isToBeDeleted() {
         return toBeDeleted;
     }
     public void setToBeDeleted(boolean toBeDeleted) {
         this.toBeDeleted = toBeDeleted;
-
-
     }
 }

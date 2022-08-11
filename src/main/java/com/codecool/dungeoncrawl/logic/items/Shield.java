@@ -3,11 +3,9 @@ package com.codecool.dungeoncrawl.logic.items;
 import com.codecool.dungeoncrawl.logic.Cell;
 
 public class Shield extends Item{
-    private double specialBonus;
 
-    public Shield(Cell cell, int bonusStat, double specialBonus) {
-        super(cell, bonusStat);
-        this.specialBonus = specialBonus;
+    public Shield(Cell cell, String name, int bonusStat, double specialBonus) {
+        super(cell, name, bonusStat, specialBonus);
     }
 
     @Override
@@ -15,5 +13,4 @@ public class Shield extends Item{
         return "shield";
     }
 
-    public double getSpecialBonus() {return specialBonus;}
 }

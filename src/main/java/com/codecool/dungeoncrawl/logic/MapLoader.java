@@ -34,6 +34,46 @@ public class MapLoader  {
                 if (x < line.length()) {
                     Cell cell = map.getCell(x, y);
                     switch (line.charAt(x)) {
+                        case '@':
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
+                            map.setPlayer(new Player(cell, 10, 4 , 2));
+                            break;
+                        case 's':
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
+                            map.appendMobs(new Skeleton(cell, 6, 3, 2));
+                            break;
+                        case 'S':
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
+                            map.appendMobs(new Skeleton(cell, 8, 5, 3));
+                            break;
+                        case 'b':
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
+                            map.appendMobs(new Bomber(cell, 4, 6, 1));
+                            break;
+                        case 'm':
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
+                            map.appendMobs(new ThreeMusketeers(cell, 10, 4, 3));
+                            break;
+                        case 'M':
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
+                            map.appendMobs(new ThreeMusketeers(cell, 12, 7, 4));
+                            break;
+                        case 'k':
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
+                            map.appendItems(new Key(cell, "blue-key", 0, 0.0));
+                            break;
+                        case 'x':
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
+                            map.appendItems(new Sword(cell, "sword",3, 0.0));
+                            break;
+                        case 'p':
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
+                            map.appendItems(new Shield(cell, "shield",1, 0.5));
+                            break;
+                        case 'P':
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
+                            map.appendItems(new Shield(cell, "shield",3, 1.0));
+                            break;
                         case ' ':
                             cell.setType(CellType.EMPTY);
                             break;
@@ -43,34 +83,11 @@ public class MapLoader  {
                         case '.':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             break;
-                        case 's':
-                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
-                            map.appendMobs(new Skeleton(cell, 6, 3, 2));
-                            break;
-                        case '@':
-                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
-                            map.setPlayer(new Player(cell, 10, 4 , 2));
-                            break;
-                        case 'k':
-                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
-                            map.setKey(new Key(cell, 0));
-                            break;
-                        case 'b':
-                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
-                            map.appendMobs(new Bomber(cell, 4, 6, 1));
-                            break;
-                        case 'x':
-                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
-                            map.setSword(new Sword(cell, 3));
-                            break;
                         case 'B':
                             cell.setType(CellType.CLOSEDBLUEDOOR);
                             break;
                         case 'l':
                             cell.setType(CellType.STAIRDOWN);
-                            break;
-                        case 'd':
-                            cell.setType(CellType.CLOSEDBLUEDOOR);
                             break;
                         case '^':
                             cell.setType(CellType.STAIRUP);
@@ -110,14 +127,6 @@ public class MapLoader  {
                             break;
                         case '<':
                             randomTile(cell, CellType.ORANGEWALL2, CellType.ORANGEWALLBROKEN, CellType.ORANGEWALL);
-                            break;
-                        case 'M':
-                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
-                            map.appendMobs(new ThreeMusketeers(cell, 10, 4, 3));
-                            break;
-                        case 'p':
-                            randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
-                            map.setShield(new Shield(cell, 1, 0.5));
                             break;
                         case 'f':
                             cell.setType(CellType.FINISH);

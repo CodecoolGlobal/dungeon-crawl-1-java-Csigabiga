@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic.monsterlogic;
 import com.codecool.dungeoncrawl.actors.Mob;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Shield;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -30,8 +31,8 @@ public class GameCycle {
         for (Item item:
              inventory) {
             if (item.getTileName().equals("shield")) {
-                hp += map.getShield().getSpecialBonus();
-                if (hp == 1) {
+                hp += item.getSpecialBonus();
+                if (hp >= 1) {
                     map.getPlayer().heal((int) hp);
                     hp = 0.0;
                 }

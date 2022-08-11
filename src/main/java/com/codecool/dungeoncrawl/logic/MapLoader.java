@@ -78,6 +78,12 @@ public class MapLoader  {
                         case '>':
                             cell.setType(CellType.ORANGEWALL);
                             break;
+                        case '?':
+                            cell.setType(CellType.INFOBARSHIELD);
+                            break;
+                        case '+':
+                            cell.setType(CellType.INFOBARSWORD);
+                            break;
                         case '<':
                             randomTile(cell, CellType.ORANGEWALL2, CellType.ORANGEWALLBROKEN, CellType.ORANGEWALL);
                             break;

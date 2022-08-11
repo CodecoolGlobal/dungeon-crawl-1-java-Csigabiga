@@ -57,7 +57,7 @@ public class Player extends Actor {
     }
 
 
-    public ArrayList<Item> inventory () {return items;}
+    public ArrayList<Item> getInventory () {return items;}
 
     public void addToInventory() {
         items.add(getCell().getItem());

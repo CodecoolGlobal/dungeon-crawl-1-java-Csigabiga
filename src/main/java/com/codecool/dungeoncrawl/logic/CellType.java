@@ -36,7 +36,15 @@ public enum CellType {
     BOX("box"),
     BLUESWITCHLEFT("blueSwitchLeft"),
     BLUESWITCHLOCK("blueSwitchLock"),
-    BLUESWITCHRIGHT("blueSwitchRight");
+    BLUESWITCHRIGHT("blueSwitchRight"),
+    FINISH("finish"),
+    W("W"),
+    E("E"),
+    L("L"),
+    D("D"),
+    O("O"),
+    N("N"),
+    DIAMOND("diamond");
 
     private final String tileName;
 

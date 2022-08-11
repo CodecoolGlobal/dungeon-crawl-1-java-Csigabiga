@@ -28,6 +28,7 @@ public class Main extends Application {
     GameMap map01 = MapLoader.loadMap("/maps/map01.txt");
     GameMap map02 = MapLoader.loadMap("/maps/map02.txt");
     GameMap map03 = MapLoader.loadMap("/maps/map03.txt");
+    GameMap finish = MapLoader.loadMap("/maps/finish.txt");
     GameMap currentMap = map01;
     MonsterCycle monsterCycle = new MonsterCycle(currentMap, this::refresh);
     Canvas canvas = new Canvas(
@@ -131,10 +132,10 @@ public class Main extends Application {
                     monsterCycle = new MonsterCycle(currentMap, this::refresh);
                     refresh();
                 } else if (map02.equals(currentMap)) {
-                    currentMap = map03;
+                    currentMap = finish;
                     monsterCycle = new MonsterCycle(currentMap, this::refresh);
                     refresh();
-                } else if (map03.equals(currentMap)) {
+                } else if (finish.equals(currentMap)) {
                     currentMap = map01;
                     monsterCycle = new MonsterCycle(currentMap, this::refresh);
                     refresh();
@@ -171,7 +172,7 @@ public class Main extends Application {
            if (map01.equals(currentMap)) {
                changeLevel(map01, map02, 20, 18);
            } else if (map02.equals(currentMap)) {
-               changeLevel(map02,map03,5,18);
+               changeLevel(map02, finish, 0,0);
            } else if (map03.equals(currentMap)) {
                //TODO implement something map04 or something
 //               changeLevel(map03, map01, 20, 18);
@@ -241,7 +242,7 @@ public class Main extends Application {
         }
         else if (cell.getTileName().equals("infoBarBag")){
             int inventorySize = 6;
-            ArrayList<Item> items = currentMap.getPlayer().inventory();
+            ArrayList<Item> items = currentMap.getPlayer().getInventory();
             for (int i = 0 ; i < items.size(); i++){
                 currentMap.getCell(x + i + 2, y).setItem(items.get(i));
             }

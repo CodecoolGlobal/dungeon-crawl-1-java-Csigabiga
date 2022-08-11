@@ -63,7 +63,7 @@ public class MapLoader  {
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             map.setSword(new Sword(cell, 3));
                             break;
-                        case 'D':
+                        case 'B':
                             cell.setType(CellType.CLOSEDBLUEDOOR);
                             break;
                         case 'l':
@@ -72,7 +72,7 @@ public class MapLoader  {
                         case 'd':
                             cell.setType(CellType.CLOSEDBLUEDOOR);
                             break;
-                        case 'L':
+                        case '^':
                             cell.setType(CellType.STAIRUP);
                             break;
                         case '\\':
@@ -118,6 +118,30 @@ public class MapLoader  {
                         case 'p':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             map.setShield(new Shield(cell, 1, 0.5));
+                            break;
+                        case 'f':
+                            cell.setType(CellType.FINISH);
+                            break;
+                        case 'W':
+                            cell.setType(CellType.W);
+                            break;
+                        case 'E':
+                            cell.setType(CellType.E);
+                            break;
+                        case 'L':
+                            cell.setType(CellType.L);
+                            break;
+                        case 'D':
+                            cell.setType(CellType.D);
+                            break;
+                        case 'O':
+                            cell.setType(CellType.O);
+                            break;
+                        case 'N':
+                            cell.setType(CellType.N);
+                            break;
+                        case '*':
+                            cell.setType(CellType.DIAMOND);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

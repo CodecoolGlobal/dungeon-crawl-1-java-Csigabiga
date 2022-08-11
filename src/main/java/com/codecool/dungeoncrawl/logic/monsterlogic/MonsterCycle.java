@@ -26,7 +26,7 @@ public class MonsterCycle {
     }
 
     private void doStep(ActionEvent actionEvent) {
-        ArrayList<Item> inventory = map.getPlayer().inventory();
+        ArrayList<Item> inventory = map.getPlayer().getInventory();
         for (Item item:
              inventory) {
             if (item.getTileName().equals("shield")) {

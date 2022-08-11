@@ -84,6 +84,15 @@ public class MapLoader  {
                         case '+':
                             cell.setType(CellType.INFOBARSWORD);
                             break;
+                        case '%':
+                            cell.setType(CellType.INFOBARCOINS);
+                            break;
+                        case '~':
+                            cell.setType(CellType.INFOBARBAG);
+                            break;
+                        case ':':
+                            cell.setType(CellType.DOUBLEDOT);
+                            break;
                         case '<':
                             randomTile(cell, CellType.ORANGEWALL2, CellType.ORANGEWALLBROKEN, CellType.ORANGEWALL);
                             break;

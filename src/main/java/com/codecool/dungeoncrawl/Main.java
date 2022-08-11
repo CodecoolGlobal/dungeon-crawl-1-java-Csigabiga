@@ -184,5 +184,9 @@ public class Main extends Application {
             currentMap.getCell(x + 1, y).setType(CellType.NUMBER0);
             currentMap.getCell(x + 2, y).setType(CellType.values()[playerAttackPower % 10]);
         }
+        else if(cell.getTileName().equals("infoBarCoins")){
+            currentMap.getCell(x + 1, y).setType(CellType.NUMBER0);
+            currentMap.getCell(x + 2, y).setType(CellType.NUMBER0);
+        }
     }
 }

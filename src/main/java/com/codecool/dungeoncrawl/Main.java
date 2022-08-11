@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.monsterlogic.MonsterCycle;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
@@ -18,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -152,7 +154,7 @@ public class Main extends Application {
                 else if(cell.getItem() != null) {
                     Tiles.drawTile(context, cell.getItem(), x, y);
                 }
-                else if (cell.getTileName().matches("heart|infoBarShield|infoBarSword|infoBarCoins")) updateStatusBar(x, y, cell);
+                else if (cell.getTileName().matches("heart|infoBarShield|infoBarSword|infoBarCoins|infoBarBag")) updateStatusBar(x, y, cell);
                 else {
                     Tiles.drawTile(context, cell, x, y);
                 }
@@ -187,6 +189,16 @@ public class Main extends Application {
         else if(cell.getTileName().equals("infoBarCoins")){
             currentMap.getCell(x + 1, y).setType(CellType.NUMBER0);
             currentMap.getCell(x + 2, y).setType(CellType.NUMBER0);
+        }
+        else if (cell.getTileName().equals("infoBarBag")){
+            int inventorySize = 6;
+            ArrayList<Item> items = currentMap.getPlayer().inventory();
+            for (int i = 0 ; i < items.size(); i++){
+                currentMap.getCell(x + i + 2, y).setItem(items.get(i));
+            }
+            for (int i = items.size(); i < inventorySize; i++){
+                currentMap.getCell(x + i + 2, y).setItem(null);
+            }
         }
     }
 }

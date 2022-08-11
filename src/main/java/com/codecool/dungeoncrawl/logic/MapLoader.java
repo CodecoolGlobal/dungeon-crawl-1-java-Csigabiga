@@ -12,9 +12,9 @@ import java.io.InputStream;
 import java.util.Random;
 import java.util.Scanner;
 
-public class MapLoader {
+public class MapLoader  {
 
-    private static void randomTile(Cell cell, CellType... cellTypes) {
+    private static void randomTile(Cell cell, CellType ... cellTypes){
         Random random = new Random();
         cell.setType(cellTypes[random.nextInt(cellTypes.length)]);
     }
@@ -78,6 +78,12 @@ public class MapLoader {
                         case '\\':
                             cell.setType(CellType.BLUESWITCHLEFT);
                             break;
+                        case '!':
+                            cell.setType(CellType.HEART);
+                            break;
+                        case '=':
+                            cell.setType(CellType.INFOBARMIDDLE);
+                            break;
                         case '>':
                             cell.setType(CellType.ORANGEWALL);
                             break;
@@ -87,10 +93,25 @@ public class MapLoader {
                         case ';':
                             cell.setType(CellType.BLUESWITCHLOCK);
                             break;
+                        case '?':
+                            cell.setType(CellType.INFOBARSHIELD);
+                            break;
+                        case '+':
+                            cell.setType(CellType.INFOBARSWORD);
+                            break;
+                        case '%':
+                            cell.setType(CellType.INFOBARCOINS);
+                            break;
+                        case '~':
+                            cell.setType(CellType.INFOBARBAG);
+                            break;
+                        case ':':
+                            cell.setType(CellType.DOUBLEDOT);
+                            break;
                         case '<':
                             randomTile(cell, CellType.ORANGEWALL2, CellType.ORANGEWALLBROKEN, CellType.ORANGEWALL);
                             break;
-                        case '3':
+                        case 'M':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             map.appendThreeMusketeers(new ThreeMusketeers(cell, 10, 4, 3));
                             break;

@@ -51,6 +51,24 @@ public class Tiles {
         tileMap.put("stairUp", new Tile(2, 6));
         tileMap.put("stairDown", new Tile(3, 6));
         tileMap.put("shield", new Tile(2,23));
+        tileMap.put("infoBarMiddle", new Tile(20,15));
+        tileMap.put("heart", new Tile(26,22));
+        tileMap.put("numberZero", new Tile(19,29));
+        tileMap.put("numberOne", new Tile(20,29));
+        tileMap.put("numberTwo", new Tile(21,29));
+        tileMap.put("numberThree", new Tile(22,29));
+        tileMap.put("numberFour", new Tile(23,29));
+        tileMap.put("numberFive", new Tile(24,29));
+        tileMap.put("numberSix", new Tile(25,29));
+        tileMap.put("numberSeven", new Tile(26,29));
+        tileMap.put("numberEight", new Tile(27,29));
+        tileMap.put("numberNine", new Tile(28,29));
+        tileMap.put("infoBarShield", new Tile(7,26));
+        tileMap.put("infoBarSword", new Tile(2,29));
+        tileMap.put("infoBarCoins", new Tile(9,26));
+        tileMap.put("infoBarBag", new Tile(15,26));
+        tileMap.put("doubleDot", new Tile(29,29));
+
         tileMap.put("closedBlueDoor", new Tile(1, 9));
         tileMap.put("openedBlueDoor", new Tile(2, 9));
         tileMap.put("trigger", new Tile(7, 13));

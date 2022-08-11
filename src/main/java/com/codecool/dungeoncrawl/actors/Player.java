@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Key;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -94,7 +95,14 @@ public class Player extends Actor {
         }
     }
 
-/*    public void moveBox(int dx, int dy, char key) {
+    public int getBonusAttack() {
+        return bonusAttack;
+    }
+
+    public int getBonusShield() {
+        return bonusShield;
+    }
+    /*  public void moveBox(int dx, int dy, char key) {
         if (getCell().getNeighbor(dx, dy).getTileName().equals("box")) {
             int boxPositionX = getX();
             int boxPositionY = getY();

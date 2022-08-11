@@ -121,19 +121,23 @@ public class GameMap {
         for (Bomber bomber : bombers) {
             int x = bomber.getX();
             int y = bomber.getY();
-            if (bomber.getTileName().equals("sleep")) {
-                if (isNextToIt(x, y)) {
-                    bomber.setTileName("ready");
-                }
-            } else if (bomber.getTileName().equals("ready")) {
-                bomber.setTileName("explode");
-                if (isNextToIt(x, y)) {
-                    dealDamage(bomber.getAttackPower());
-                }
-            } else if (bomber.getTileName().equals("explode")){
-                bomber.setTileName("floor");
-                bomber.getCell().setType(CellType.FLOOR);
-                bomber.getCell().setActor(null);
+            switch (bomber.getTileName()) {
+                case "sleep":
+                    if (isNextToIt(x, y)) {
+                        bomber.setTileName("ready");
+                    }
+                    break;
+                case "ready":
+                    bomber.setTileName("explode");
+                    if (isNextToIt(x, y)) {
+                        dealDamage(bomber.getAttackPower());
+                    }
+                    break;
+                case "explode":
+                    bomber.setTileName("floor");
+                    bomber.getCell().setType(CellType.FLOOR);
+                    bomber.getCell().setActor(null);
+                    break;
             }
 
         }

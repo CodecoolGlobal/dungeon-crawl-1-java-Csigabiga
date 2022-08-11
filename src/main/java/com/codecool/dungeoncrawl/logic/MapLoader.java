@@ -45,7 +45,7 @@ public class MapLoader  {
                             break;
                         case 's':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
-                            map.appendSkeleton(new Skeleton(cell, 6, 3, 0));
+                            map.appendMobs(new Skeleton(cell, 6, 3, 2));
                             break;
                         case '@':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
@@ -57,7 +57,7 @@ public class MapLoader  {
                             break;
                         case 'b':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
-                            map.appendBomber(new Bomber(cell, 4, 6, 1));
+                            map.appendMobs(new Bomber(cell, 4, 6, 1));
                             break;
                         case 'x':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
@@ -113,7 +113,7 @@ public class MapLoader  {
                             break;
                         case 'M':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
-                            map.appendThreeMusketeers(new ThreeMusketeers(cell, 10, 4, 3));
+                            map.appendMobs(new ThreeMusketeers(cell, 10, 4, 3));
                             break;
                         case 'p':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);

@@ -9,13 +9,10 @@ import com.codecool.dungeoncrawl.logic.items.Sword;
 import java.util.*;
 
 public class GameMap {
-    Random random = new Random();
-    private int width;
-    private int height;
-    private Cell[][] cells;
-    private List<Skeleton> skeletons;
-    private List<Bomber> bombers;
-    private List<ThreeMusketeers> threeMusketeers;
+    private final int width;
+    private final int height;
+    private final Cell[][] cells;
+    private final List<Mob> mobs;
     private Player player;
     private Key blueKey;
     private Sword basicSword;
@@ -33,9 +30,7 @@ public class GameMap {
         this.mapNumber++;
         this.width = width;
         this.height = height;
-        this.threeMusketeers = new ArrayList<>();
-        this.skeletons = new ArrayList<>();
-        this.bombers = new ArrayList<>();
+        this.mobs = new ArrayList<>();
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -52,9 +47,10 @@ public class GameMap {
         this.player = player;
     }
 
-    public void appendSkeleton(Skeleton skeleton) {skeletons.add(skeleton);}
-    public void appendBomber(Bomber bomber) {bombers.add(bomber);}
-    public void appendThreeMusketeers(ThreeMusketeers threeMusketeer) {threeMusketeers.add(threeMusketeer);}
+
+    public void appendMobs(Mob mob) {mobs.add(mob);}
+    public List<Mob> getMobs() {return mobs;}
+
 
     public Player getPlayer() {
         return player;
@@ -86,128 +82,5 @@ public class GameMap {
 
     public int getHeight() {
         return height;
-    }
-
-    public void skeletonRound() {
-        for (Skeleton skeleton: skeletons) {
-            if (skeleton.getTileName().equals("skeleton0")) {
-                skeleton.setTileName("skeleton2");
-            } else if (skeleton.getTileName().equals("skeleton2")){
-                skeleton.setTileName("skeleton1");
-            } else {skeleton.setTileName("skeleton2");}
-            switch (random.nextInt(4)) {
-                case 0:
-                    skeleton.move(0, -1);
-                    break;
-                case 1:
-                    skeleton.move(0, 1);
-                    break;
-                case 2:
-                    skeleton.move(-1, 0);
-                    break;
-                case 3:
-                    skeleton.move(1, 0);
-                    break;
-            }
-            if(isNextToIt(skeleton.getX(), skeleton.getY())) {
-                dealDamage(skeleton.getAttackPower());
-            }
-        }
-
-    }
-
-
-    public void bomberRound() {
-        for (Bomber bomber : bombers) {
-            int x = bomber.getX();
-            int y = bomber.getY();
-            switch (bomber.getTileName()) {
-                case "sleep":
-                    if (isNextToIt(x, y)) {
-                        bomber.setTileName("ready");
-                    }
-                    break;
-                case "ready":
-                    bomber.setTileName("explode");
-                    if (isNextToIt(x, y)) {
-                        dealDamage(bomber.getAttackPower());
-                    }
-                    break;
-                case "explode":
-                    bomber.setTileName("floor");
-                    bomber.getCell().setType(CellType.FLOOR);
-                    bomber.getCell().setActor(null);
-                    break;
-            }
-
-        }
-    }
-
-
-    public void threeMusketeerRound() {
-        for (ThreeMusketeers threeMusketeer:
-             threeMusketeers) {
-            boolean found = false;
-            for (int i = 0; i < 15; i++) {
-                for (int j = 0; j < 15; j++) {
-                    if(isNextToIt(threeMusketeer.getX() + 7 - i, threeMusketeer.getY() + 7 - j)) {
-                        int xDiff = player.getX() - threeMusketeer.getX();
-                        int yDiff = player.getY() - threeMusketeer.getY();
-                        threeMusketeer.move(Integer.signum(xDiff), 0);
-                        threeMusketeer.move(0, Integer.signum(yDiff));
-                        found = true;
-                        break;
-                    }
-                }
-                if (found) {break;}
-            }
-            if (isNextToIt(threeMusketeer.getX(), threeMusketeer.getY())) {
-                dealDamage(threeMusketeer.getAttackPower());
-            }
-        }
-    }
-
-
-    private boolean isNextToIt(int x, int y) {
-        Cell player = getPlayer().getCell();
-        int px = player.getX();
-        int py = player.getY();
-        return px == x && py + 1 == y || px == x && py - 1 == y || px + 1 == x && py == y || px - 1 == x && py == y;
-    }
-
-
-    private void dealDamage (int damage) {
-        player.setHealth(damage);
-    }
-
-
-    public void isAlive () {
-        for (Skeleton skeleton :
-                skeletons) {
-            if (skeleton.getHealth() <= 0) {
-                skeleton.setTileName("corpse");
-                skeleton.getCell().setType(CellType.CORPSE);
-                skeleton.getCell().setActor(null);
-            }
-        }
-        for (Bomber bomber :
-                bombers) {
-            if (bomber.getHealth() <= 0) {
-                bomber.setTileName("corpse");
-                bomber.getCell().setType(CellType.CORPSE);
-                bomber.getCell().setActor(null);
-            }
-        }
-        for (ThreeMusketeers threeMusketeer:
-             threeMusketeers) {
-            if (threeMusketeer.getHealth() <= 0) {
-                threeMusketeer.setTileName("corpse");
-                threeMusketeer.getCell().setType(CellType.CORPSE);
-                threeMusketeer.getCell().setActor(null);
-            }
-        }
-        bombers.removeIf(bomber -> bomber.getHealth() <= 0);
-        skeletons.removeIf(skeleton -> skeleton.getHealth() <= 0);
-        threeMusketeers.removeIf(threeMusketeer -> threeMusketeer.getHealth() <= 0);
     }
 }

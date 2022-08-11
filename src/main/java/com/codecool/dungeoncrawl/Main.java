@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.monsterlogic.MonsterCycle;
+import com.codecool.dungeoncrawl.logic.monsterlogic.GameCycle;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
@@ -28,7 +28,7 @@ public class Main extends Application {
     GameMap map03 = MapLoader.loadMap("/maps/map03.txt");
     GameMap finish = MapLoader.loadMap("/maps/finish.txt");
     GameMap currentMap = map01;
-    MonsterCycle monsterCycle = new MonsterCycle(currentMap, this::refresh);
+    GameCycle gameCycle = new GameCycle(currentMap, this::refresh);
     Canvas canvas = new Canvas(
             currentMap.getWidth() * Tiles.TILE_WIDTH,
             currentMap.getHeight() * Tiles.TILE_WIDTH);
@@ -90,7 +90,7 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         if (!start) {
             start = true;
-            monsterCycle.start();
+            gameCycle.start();
         }
         setButtonDisabledStatus(true);
         switch (keyEvent.getCode()) {
@@ -126,16 +126,17 @@ public class Main extends Application {
                 break;
             case L:
                 if (map01.equals(currentMap)) {
+                    gameCycle.stop();
                     currentMap = map02;
-                    monsterCycle = new MonsterCycle(currentMap, this::refresh);
+                    gameCycle = new GameCycle(currentMap, this::refresh);
                     refresh();
                 } else if (map02.equals(currentMap)) {
                     currentMap = finish;
-                    monsterCycle = new MonsterCycle(currentMap, this::refresh);
+                    gameCycle = new GameCycle(currentMap, this::refresh);
                     refresh();
                 } else if (finish.equals(currentMap)) {
                     currentMap = map01;
-                    monsterCycle = new MonsterCycle(currentMap, this::refresh);
+                    gameCycle = new GameCycle(currentMap, this::refresh);
                     refresh();
                 }
         }
@@ -201,10 +202,10 @@ public class Main extends Application {
        }
     }
     public void changeLevel(GameMap previousMap, GameMap nextMap, int x, int y){
-        monsterCycle.stop();
+        gameCycle.stop();
         currentMap = nextMap;
         start = false;
-        monsterCycle = new MonsterCycle(currentMap, this::refresh);
+        gameCycle = new GameCycle(currentMap, this::refresh);
         nextMap.getCell(x, y).setActor(previousMap.getPlayer());
         nextMap.setPlayer(previousMap.getPlayer());
         nextMap.getPlayer().setCell(nextMap.getCell(x, y));

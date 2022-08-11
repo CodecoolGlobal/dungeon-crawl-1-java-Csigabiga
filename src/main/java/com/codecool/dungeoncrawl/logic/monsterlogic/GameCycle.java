@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.monsterlogic;
 
+import com.codecool.dungeoncrawl.actors.Mob;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import javafx.animation.KeyFrame;
@@ -8,17 +9,16 @@ import javafx.event.ActionEvent;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 
-public class MonsterCycle {
+public class GameCycle {
     private final Timeline timeline;
     GameMap map;
     Runnable refresh;
     double hp = 0.0;
 
 
-    public MonsterCycle(GameMap map, Runnable refresh) {
+    public GameCycle(GameMap map, Runnable refresh) {
         this.map = map;
         this.refresh = refresh;
         this.timeline = new Timeline(new KeyFrame(Duration.millis(500), this::doStep));
@@ -37,10 +37,10 @@ public class MonsterCycle {
                 }
             }
         }
-        map.isAlive();
-        map.skeletonRound();
-        map.bomberRound();
-        map.threeMusketeerRound();
+        map.getMobs().removeIf(mob -> !mob.isAlive());
+        for (Mob mob: map.getMobs()) {
+            mob.mobRound();
+        }
         refresh.run();
 
     }

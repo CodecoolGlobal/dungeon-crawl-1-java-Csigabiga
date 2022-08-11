@@ -1,0 +1,52 @@
+package com.codecool.dungeoncrawl.actors;
+
+import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
+
+public abstract class Mob extends Actor{
+
+    protected String tileName;
+
+
+    public Mob(Cell cell, int health, int attackPower, int defensePower, String tileName) {
+        super(cell, health, attackPower, defensePower);
+        this.tileName = tileName;
+    }
+
+
+    public String getTileName() {return tileName;}
+
+
+    public void setTileName(String tileName) {this.tileName = tileName;}
+
+
+    public abstract void mobRound();
+
+
+    public void dealDamage (int damage, Actor actor) {actor.setHealth(damage);}
+
+
+    public Actor lookingForPlayer() {
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                if (getCell().getNeighbor(i, j).getActor() != null) {
+                    if (getCell().getNeighbor(i, j).getActor().getTileName().equals("player")) {
+                        return getCell().getNeighbor(i, j).getActor();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+
+    public boolean isAlive () {
+        if (getHealth() <= 0) {
+            setTileName("corpse");
+            getCell().setType(CellType.CORPSE);
+            getCell().setActor(null);
+            return false;
+        }
+        return true;
+    }
+}

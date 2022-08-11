@@ -51,6 +51,10 @@ public class Tiles {
         tileMap.put("stairUp", new Tile(2, 6));
         tileMap.put("stairDown", new Tile(3, 6));
         tileMap.put("shield", new Tile(2,23));
+        tileMap.put("closedBlueDoor", new Tile(1, 9));
+        tileMap.put("openedBlueDoor", new Tile(2, 9));
+        tileMap.put("trigger", new Tile(7, 13));
+        tileMap.put("box", new Tile(12, 18));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

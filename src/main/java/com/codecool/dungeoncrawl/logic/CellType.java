@@ -26,6 +26,8 @@ public enum CellType {
     CLOSEDBLUEDOOR("closedBlueDoor"),
     OPENBLUEDOOR("openedBlueDoor"),
     INFOBARMIDDLE("infoBarMiddle"),
+    INFOBARSHIELD("infoBarShield"),
+    INFOBARSWORD("infoBarSword"),
     HEART("heart"),
     TRIGGER("trigger"),
     BOX("box");

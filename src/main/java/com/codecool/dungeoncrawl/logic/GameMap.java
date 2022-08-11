@@ -17,8 +17,8 @@ public class GameMap {
     private List<Bomber> bombers;
     private List<ThreeMusketeers> threeMusketeers;
     private Player player;
-    private Key key;
-    private Sword sword;
+    private Key blueKey;
+    private Sword basicSword;
     private Shield shield;
 
     private Box box;
@@ -61,19 +61,19 @@ public class GameMap {
     }
 
     public Key getKey() {
-        return key;
+        return blueKey;
     }
 
     public void setKey(Key key) {
-        this.key = key;
+        this.blueKey = key;
     }
 
     public Sword getSword() {
-        return sword;
+        return basicSword;
     }
 
     public void setSword(Sword sword) {
-        this.sword = sword;
+        this.basicSword = sword;
     }
     public void setShield(Shield shield) {this.shield = shield;}
     public Shield getShield() { return shield;}

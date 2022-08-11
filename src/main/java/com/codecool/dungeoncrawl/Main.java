@@ -1,8 +1,6 @@
 package com.codecool.dungeoncrawl;
-
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.monsterlogic.MonsterCycle;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
@@ -58,7 +56,7 @@ public class Main extends Application {
         ui.add(new Label("Inventory: "), 0, 3);
         ui.add(inventoryLabel, 0, 4);
         setButtonDisabledStatus(true);
-        toDoOnAction();
+        setActionListener();
 
         BorderPane borderPane = new BorderPane();
 
@@ -79,7 +77,7 @@ public class Main extends Application {
         pickUpButton.setDisable(status);
     }
 
-    public void toDoOnAction() {
+    public void setActionListener() {
         pickUpButton.setOnAction(value -> {
             setButtonDisabledStatus(true);
             currentMap.getPlayer().addToInventory();

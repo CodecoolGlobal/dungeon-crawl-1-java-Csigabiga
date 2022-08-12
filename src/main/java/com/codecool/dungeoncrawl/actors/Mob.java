@@ -29,9 +29,10 @@ public abstract class Mob extends Actor{
     public Actor lookingForPlayer() {
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                if (getCell().getNeighbor(i, j).getActor() != null) {
-                    if (getCell().getNeighbor(i, j).getActor().getTileName().equals("player")) {
-                        return getCell().getNeighbor(i, j).getActor();
+                Actor player = getCell().getNeighbor(i, j).getActor();
+                if (player != null) {
+                    if (player.getTileName().equals("player")) {
+                        return player;
                     }
                 }
             }

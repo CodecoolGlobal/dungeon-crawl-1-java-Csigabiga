@@ -17,9 +17,6 @@ public abstract class Mob extends Actor{
     public String getTileName() {return tileName;}
 
 
-    public void setTileName(String tileName) {this.tileName = tileName;}
-
-
     public abstract void mobRound();
 
 
@@ -43,7 +40,7 @@ public abstract class Mob extends Actor{
 
     public boolean isAlive () {
         if (getHealth() <= 0) {
-            setTileName("corpse");
+            tileName = "corpse";
             getCell().setType(CellType.CORPSE);
             getCell().setActor(null);
             return false;

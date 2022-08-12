@@ -4,9 +4,10 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
 public abstract class Actor implements Drawable {
+
     protected Cell cell;
-    protected int health;
-    protected int defensePower;
+    private int health;
+    private final int defensePower;
     protected int attackPower;
 
     public Actor(Cell cell, int health, int attackPower, int defensePower) {

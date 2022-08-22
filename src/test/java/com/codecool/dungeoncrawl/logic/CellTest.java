@@ -18,9 +18,9 @@ class CellTest {
     @Test
     void cellOnEdgeHasNoNeighbor() {
         Cell cell = map.getCell(1, 0);
-        assertNull(cell.getNeighbor(0, -1));
+        assertEquals(null, cell.getNeighbor(0, -1));
 
         cell = map.getCell(1, 2);
-        assertNull(cell.getNeighbor(0, 1));
+        assertEquals(null, cell.getNeighbor(0, 1));
     }
 }

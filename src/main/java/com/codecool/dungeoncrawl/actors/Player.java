@@ -9,6 +9,11 @@ import java.util.StringJoiner;
 
 public class Player extends Actor {
 
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    private final String playerName = "PLAYER";
     private int bonusAttack = 0;
     private int bonusShield = 0;
     public Player(Cell cell, int health, int attackPower, int defensePower) {

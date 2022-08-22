@@ -1,4 +1,6 @@
 package com.codecool.dungeoncrawl;
+
+import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.gamecycle.GameCycle;
@@ -6,6 +8,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.utils.Style;
+import com.codecool.dungeoncrawl.actors.Player;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -13,11 +16,16 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -37,7 +45,7 @@ public class Main extends Application {
     boolean start = false;
     Label inventoryLabel = new Label();
     public static Button pickUpButton;
-
+    GameDatabaseManager dbManager;
 
     public static void main(String[] args) {
         launch(args);
@@ -45,6 +53,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        setupDbManager();
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
@@ -67,6 +76,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
+        scene.setOnKeyReleased(this::onKeyReleased);
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
@@ -77,6 +87,16 @@ public class Main extends Application {
         pickUpButton.setDisable(status);
     }
 
+    private void onKeyReleased(KeyEvent keyEvent) {
+        KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
+        KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
+        if (exitCombinationMac.match(keyEvent)
+                || exitCombinationWin.match(keyEvent)
+                || keyEvent.getCode() == KeyCode.ESCAPE) {
+            exit();
+        }
+    }
+
     public void setActionListener() {
         pickUpButton.setOnAction(value -> {
             setButtonDisabledStatus(true);
@@ -85,7 +105,6 @@ public class Main extends Application {
             currentMap.removeItem(currentMap.getPlayer().getCell().getItem());
         });
     }
-
 
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -108,7 +127,7 @@ public class Main extends Application {
                 refresh();
                 break;
             case RIGHT:
-                currentMap.getPlayer().move(1,0);
+                currentMap.getPlayer().move(1, 0);
                 refresh();
                 break;
             case W:
@@ -140,8 +159,13 @@ public class Main extends Application {
                     gameCycle = new GameCycle(currentMap, this::refresh);
                     refresh();
                 }
+            case M:
+                Player player = currentMap.getPlayer();
+                dbManager.savePlayer(player);
+                break;
         }
     }
+
 
     private void refresh() {
         context.setFill(Color.BLACK);
@@ -151,11 +175,10 @@ public class Main extends Application {
                 Cell cell = currentMap.getCell(x, y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y);
-                }
-                else if(cell.getItem() != null) {
+                } else if (cell.getItem() != null) {
                     Tiles.drawTile(context, cell.getItem(), x, y);
-                }
-                else if (cell.getTileName().matches("heart|infoBarShield|infoBarSword|infoBarCoins|infoBarBag")) updateStatusBar(x, y, cell);
+                } else if (cell.getTileName().matches("heart|infoBarShield|infoBarSword|infoBarCoins|infoBarBag"))
+                    updateStatusBar(x, y, cell);
                 else {
                     Tiles.drawTile(context, cell, x, y);
                 }
@@ -165,44 +188,45 @@ public class Main extends Application {
         inventoryLabel.setText(currentMap.getPlayer().displayItems());
     }
 
-    public void playerInteraction(int dx, int dy){
-       String levelCheck =  currentMap.getPlayer().interact(dx, dy);
-       refresh();
-       if (Objects.equals(levelCheck, "nextLevel")){
-           if (map01.equals(currentMap)) {
-               changeLevel(map01, map02, 20, 18);
-           } else if (map02.equals(currentMap)) {
-               changeLevel(map02, finish, 0,0);
-           } else if (map03.equals(currentMap)) {
-               //TODO implement something map04 or something
+    public void playerInteraction(int dx, int dy) {
+        String levelCheck = currentMap.getPlayer().interact(dx, dy);
+        refresh();
+        if (Objects.equals(levelCheck, "nextLevel")) {
+            if (map01.equals(currentMap)) {
+                changeLevel(map01, map02, 20, 18);
+            } else if (map02.equals(currentMap)) {
+                changeLevel(map02, finish, 0, 0);
+            } else if (map03.equals(currentMap)) {
+                //TODO implement something map04 or something
 //               changeLevel(map03, map01, 20, 18);
-           }
-        }else if (Objects.equals(levelCheck, "blueSwitch")){
-           Cell switchStance = currentMap.getPlayer().getCell().getNeighbor(dx, dy);
-           if (switchStance.getTileName().equals("blueSwitchLeft")){
-               //switch change
-               currentMap.getCell(19,12).setType(CellType.BLUESWITCHRIGHT);
-               currentMap.getCell(19,7).setType(CellType.BLUESWITCHRIGHT);
-               // floor change
-               currentMap.getCell(20,10).setType(CellType.FLOOR1);
-               currentMap.getCell(21,10).setType(CellType.FLOOR1);
-               currentMap.getCell(20,9).setType(CellType.FLOOR1);
-               currentMap.getCell(21,9).setType(CellType.FLOOR1);
-               refresh();
-           }else if(switchStance.getTileName().equals("blueSwitchRight")){
-               //switch change
-               currentMap.getCell(19,12).setType(CellType.BLUESWITCHLEFT);
-               currentMap.getCell(19,7).setType(CellType.BLUESWITCHLEFT);
-               // floor change
-               currentMap.getCell(20,10).setType(CellType.BLUESWITCHLOCK);
-               currentMap.getCell(21,10).setType(CellType.BLUESWITCHLOCK);
-               currentMap.getCell(20,9).setType(CellType.BLUESWITCHLOCK);
-               currentMap.getCell(21,9).setType(CellType.BLUESWITCHLOCK);
-               refresh();
-           }
-       }
+            }
+        } else if (Objects.equals(levelCheck, "blueSwitch")) {
+            Cell switchStance = currentMap.getPlayer().getCell().getNeighbor(dx, dy);
+            if (switchStance.getTileName().equals("blueSwitchLeft")) {
+                //switch change
+                currentMap.getCell(19, 12).setType(CellType.BLUESWITCHRIGHT);
+                currentMap.getCell(19, 7).setType(CellType.BLUESWITCHRIGHT);
+                // floor change
+                currentMap.getCell(20, 10).setType(CellType.FLOOR1);
+                currentMap.getCell(21, 10).setType(CellType.FLOOR1);
+                currentMap.getCell(20, 9).setType(CellType.FLOOR1);
+                currentMap.getCell(21, 9).setType(CellType.FLOOR1);
+                refresh();
+            } else if (switchStance.getTileName().equals("blueSwitchRight")) {
+                //switch change
+                currentMap.getCell(19, 12).setType(CellType.BLUESWITCHLEFT);
+                currentMap.getCell(19, 7).setType(CellType.BLUESWITCHLEFT);
+                // floor change
+                currentMap.getCell(20, 10).setType(CellType.BLUESWITCHLOCK);
+                currentMap.getCell(21, 10).setType(CellType.BLUESWITCHLOCK);
+                currentMap.getCell(20, 9).setType(CellType.BLUESWITCHLOCK);
+                currentMap.getCell(21, 9).setType(CellType.BLUESWITCHLOCK);
+                refresh();
+            }
+        }
     }
-    public void changeLevel(GameMap previousMap, GameMap nextMap, int x, int y){
+
+    public void changeLevel(GameMap previousMap, GameMap nextMap, int x, int y) {
         gameCycle.stop();
         currentMap = nextMap;
         start = false;
@@ -216,7 +240,7 @@ public class Main extends Application {
 
     private void updateStatusBar(int x, int y, Cell cell) {
         Tiles.drawTile(context, cell, x, y);
-        if(cell.getTileName().equals("heart")) {
+        if (cell.getTileName().equals("heart")) {
             int playerHealth = currentMap.getPlayer().getHealth();
             if (playerHealth < 10) {
                 currentMap.getCell(x + 1, y).setType(CellType.NUMBER0);
@@ -225,30 +249,44 @@ public class Main extends Application {
                 currentMap.getCell(x + 1, y).setType(CellType.NUMBER1);
                 currentMap.getCell(x + 2, y).setType(CellType.NUMBER0);
             }
-        }
-        else if(cell.getTileName().equals("infoBarShield")){
+        } else if (cell.getTileName().equals("infoBarShield")) {
             int playerDefensePower = currentMap.getPlayer().getDefensePower() + currentMap.getPlayer().getBonusShield();
             currentMap.getCell(x + 1, y).setType(CellType.NUMBER0);
             currentMap.getCell(x + 2, y).setType(CellType.values()[playerDefensePower % 10]);
-        }
-        else if (cell.getTileName().equals("infoBarSword")){
+        } else if (cell.getTileName().equals("infoBarSword")) {
             int playerAttackPower = currentMap.getPlayer().getAttackPower() + currentMap.getPlayer().getBonusAttack();
             currentMap.getCell(x + 1, y).setType(CellType.NUMBER0);
             currentMap.getCell(x + 2, y).setType(CellType.values()[playerAttackPower % 10]);
-        }
-        else if(cell.getTileName().equals("infoBarCoins")){
+        } else if (cell.getTileName().equals("infoBarCoins")) {
             currentMap.getCell(x + 1, y).setType(CellType.NUMBER0);
             currentMap.getCell(x + 2, y).setType(CellType.NUMBER0);
-        }
-        else if (cell.getTileName().equals("infoBarBag")){
+        } else if (cell.getTileName().equals("infoBarBag")) {
             int inventorySize = 6;
             ArrayList<Item> items = currentMap.getPlayer().getInventory();
-            for (int i = 0 ; i < items.size(); i++){
+            for (int i = 0; i < items.size(); i++) {
                 currentMap.getCell(x + i + 2, y).setItem(items.get(i));
             }
-            for (int i = items.size(); i < inventorySize; i++){
+            for (int i = items.size(); i < inventorySize; i++) {
                 currentMap.getCell(x + i + 2, y).setItem(null);
             }
         }
+    }
+
+    private void setupDbManager() {
+        dbManager = new GameDatabaseManager();
+        try {
+            dbManager.setup();
+        } catch (SQLException ex) {
+            System.out.println("Cannot connect to database.");
+        }
+    }
+
+    private void exit() {
+        try {
+            stop();
+        } catch (Exception e) {
+            System.exit(1);
+        }
+        System.exit(0);
     }
 }

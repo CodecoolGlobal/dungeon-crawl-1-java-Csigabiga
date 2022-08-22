@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.monsterlogic.GameCycle;
+import com.codecool.dungeoncrawl.logic.gamecycle.GameCycle;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;

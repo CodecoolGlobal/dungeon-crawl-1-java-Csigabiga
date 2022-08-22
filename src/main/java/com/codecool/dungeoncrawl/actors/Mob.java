@@ -3,7 +3,7 @@ package com.codecool.dungeoncrawl.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 
-public abstract class Mob extends Actor{
+public abstract class Mob extends Actor {
 
     protected String tileName;
 
@@ -14,6 +14,7 @@ public abstract class Mob extends Actor{
     }
 
 
+    @Override
     public String getTileName() {return tileName;}
 
 

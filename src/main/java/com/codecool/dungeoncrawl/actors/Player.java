@@ -89,14 +89,16 @@ public class Player extends Actor {
     }
 
     @Override
-    public void move(int dx, int dy) {
+    public boolean move(int dx, int dy) {
         super.move(dx, dy);
         if (getCell().getItem() != null) {
             if (getCell().getItem().getClass().getSimpleName().matches("Sword|Key|Shield")) {
                 Main.setButtonDisabledStatus(false);
                 pickUpItems();
+                return true;
             }
         }
+        return false;
     }
 
     public int getBonusAttack() {

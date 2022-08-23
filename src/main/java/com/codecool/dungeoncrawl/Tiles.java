@@ -46,6 +46,9 @@ public class Tiles {
         tileMap.put("ready", new Tile(20, 7));
         tileMap.put("explode", new Tile(27, 11));
         tileMap.put("musketeer", new Tile(30, 6));
+        tileMap.put("jumperGhost", new Tile(23, 9));
+        tileMap.put("jumperGhost1", new Tile(21, 9));
+        tileMap.put("jumperGhost2", new Tile(27, 11));
         tileMap.put("stairUp", new Tile(2, 6));
         tileMap.put("stairDown", new Tile(3, 6));
         tileMap.put("shield", new Tile(2,23));

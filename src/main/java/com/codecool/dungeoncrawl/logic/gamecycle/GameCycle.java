@@ -21,7 +21,7 @@ public class GameCycle {
     public GameCycle(GameMap map, Runnable refresh) {
         this.map = map;
         this.refresh = refresh;
-        this.timeline = new Timeline(new KeyFrame(Duration.millis(250), this::doStep));
+        this.timeline = new Timeline(new KeyFrame(Duration.millis(500), this::doStep));
         this.timeline.setCycleCount(Timeline.INDEFINITE);
     }
 

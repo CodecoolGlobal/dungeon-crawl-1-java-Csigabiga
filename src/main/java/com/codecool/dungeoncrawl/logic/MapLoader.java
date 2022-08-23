@@ -1,12 +1,9 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.actors.ThreeMusketeers;
+import com.codecool.dungeoncrawl.actors.*;
 import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Shield;
 import com.codecool.dungeoncrawl.logic.items.Sword;
-import com.codecool.dungeoncrawl.actors.Player;
-import com.codecool.dungeoncrawl.actors.Skeleton;
-import com.codecool.dungeoncrawl.actors.Bomber;
 
 import java.io.InputStream;
 import java.util.Random;
@@ -57,6 +54,10 @@ public class MapLoader  {
                         case 'M':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);
                             map.appendMobs(new ThreeMusketeers(cell, 12, 7, 4));
+                            break;
+                        case 'g':
+                            randomTile(cell, CellType.FLOOR, CellType.FLOOR2, CellType.FLOOR2);
+                            map.appendMobs(new JumperGhost(cell, 15, 6, 2));
                             break;
                         case 'k':
                             randomTile(cell, CellType.FLOOR, CellType.FLOOR1, CellType.FLOOR2);

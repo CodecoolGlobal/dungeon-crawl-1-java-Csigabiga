@@ -5,10 +5,10 @@ import com.codecool.dungeoncrawl.actors.Actor;
 public class Cell implements Drawable {
     private CellType type;
     private Actor actor;
-    private GameMap gameMap;
+    private final GameMap gameMap;
 
     private Item item;
-    private int x, y;
+    private final int x, y;
 
     Cell(GameMap gameMap, int x, int y, CellType type) {
         this.gameMap = gameMap;

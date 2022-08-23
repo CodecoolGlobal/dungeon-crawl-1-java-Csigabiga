@@ -10,19 +10,25 @@ import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.utils.Style;
 import com.codecool.dungeoncrawl.actors.Player;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
@@ -45,6 +51,7 @@ public class Main extends Application {
     boolean start = false;
     Label inventoryLabel = new Label();
     public static Button pickUpButton;
+    public static Button saveButton;
     GameDatabaseManager dbManager;
 
     public static void main(String[] args) {
@@ -61,11 +68,13 @@ public class Main extends Application {
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
         ui.add(pickUpButton = new Button("Pick up"), 0, 1);
+        ui.add(saveButton = new Button("Save"), 1, 1);
         Style.setGrey(pickUpButton);
         ui.add(new Label("Inventory: "), 0, 3);
         ui.add(inventoryLabel, 0, 4);
         setButtonDisabledStatus(true);
-        setActionListener();
+        setActionListener(pickUpButton);
+        setActionListener(saveButton);
 
         BorderPane borderPane = new BorderPane();
 
@@ -81,6 +90,7 @@ public class Main extends Application {
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
         pickUpButton.setFocusTraversable(false);
+        saveButton.setFocusTraversable(false);
     }
 
     public static void setButtonDisabledStatus(boolean status) {
@@ -97,17 +107,43 @@ public class Main extends Application {
         }
     }
 
-    public void setActionListener() {
-        pickUpButton.setOnAction(value -> {
-            setButtonDisabledStatus(true);
-            currentMap.getPlayer().addToInventory();
-            currentMap.getPlayer().checkBonuses();
-            currentMap.removeItem(currentMap.getPlayer().getCell().getItem());
-        });
+    public void setActionListener(Button btn) {
+        if (pickUpButton.equals(btn)) {
+            pickUpButton.setOnAction(value -> {
+                setButtonDisabledStatus(true);
+                currentMap.getPlayer().addToInventory();
+                currentMap.getPlayer().checkBonuses();
+                currentMap.removeItem(currentMap.getPlayer().getCell().getItem());
+            });
+            saveButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    final Stage dialog = new Stage();
+                }
+            });
+        } else if (saveButton.equals(btn)) {
+            saveButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    final Stage dialog = new Stage();
+                    dialog.initModality(Modality.APPLICATION_MODAL);
+                    VBox dialogVbox = new VBox(20);
+                    dialogVbox.getChildren().add(new Label("Name:"));
+                    dialogVbox.getChildren().add(new TextField());
+                    dialogVbox.getChildren().add(new Button("Save"));
+                    dialogVbox.getChildren().add(new Button("Cancel"));
+                    dialogVbox.setPadding(new Insets(10));
+                    Scene dialogScene = new Scene(dialogVbox, 300, 200);
+                    dialog.setScene(dialogScene);
+                    dialog.show();
+                }
+            });
+        }
     }
 
 
     private void onKeyPressed(KeyEvent keyEvent) {
+        boolean ctrl = false;
         if (!start) {
             start = true;
             gameCycle.start();
@@ -164,7 +200,12 @@ public class Main extends Application {
                 dbManager.savePlayer(player);
                 break;
         }
+        if (keyEvent.getCode() == KeyCode.CONTROL) {
+            ctrl = true;
+            System.out.println("ctrl");
+        }
     }
+
 
 
     private void refresh() {

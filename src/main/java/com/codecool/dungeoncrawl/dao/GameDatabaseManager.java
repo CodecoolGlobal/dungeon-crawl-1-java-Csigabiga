@@ -29,6 +29,13 @@ public class GameDatabaseManager {
         GameState gameState = new GameState(serializedCurrentMap, playerModel);
         gameStateDao.add(gameState);
     }
+    public void updateGameState(byte[] serializeCurrentMap, String playerNameToGet){
+        PlayerModel player = playerDao.get(playerNameToGet);
+        GameState gameStateFromDb = gameStateDao.get(player.getId());
+
+        GameState newGameState = new GameState(serializeCurrentMap, player);
+        gameStateDao.update(newGameState);
+    }
     public void updatePlayer(Player player){
         PlayerModel model = new PlayerModel(player);
         playerDao.update(model);

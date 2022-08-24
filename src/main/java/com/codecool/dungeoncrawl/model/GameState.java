@@ -12,6 +12,9 @@ public class GameState extends BaseModel {
         this.currentMap = currentMap;
         this.player = player;
     }
+    public GameState(byte[] currentMap) {
+        this.currentMap = currentMap;
+    }
     public byte[] getCurrentMap() {
         return currentMap;
     }

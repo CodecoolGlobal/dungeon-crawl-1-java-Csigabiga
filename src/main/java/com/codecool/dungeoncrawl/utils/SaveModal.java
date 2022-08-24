@@ -31,7 +31,7 @@ public class SaveModal {
             dialog.setScene(dialogScene);
             dialog.showAndWait();
             cancelButton.setOnAction(actionEvent1 -> dialog.close());
-                
+
             saveButton.setOnAction(actionEvent1 -> {
                 //result = "valami";
 //                if (dbmanager.checkPlayerNameInDb(textField.getText())) {

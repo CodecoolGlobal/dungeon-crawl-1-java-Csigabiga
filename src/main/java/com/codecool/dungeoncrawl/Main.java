@@ -7,6 +7,8 @@ import com.codecool.dungeoncrawl.logic.gamecycle.GameCycle;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.utils.SaveModal;
+import com.codecool.dungeoncrawl.utils.SerializationDeserialization;
 import com.codecool.dungeoncrawl.utils.Style;
 import com.codecool.dungeoncrawl.actors.Player;
 import javafx.application.Application;
@@ -33,6 +35,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -121,22 +124,6 @@ public class Main extends Application {
             currentMap.getPlayer().addToInventory();
             currentMap.getPlayer().checkBonuses();
             currentMap.removeItem(currentMap.getPlayer().getCell().getItem());
-        });
-    }
-
-    public void showModal(Button button) {
-        button.setOnAction(actionEvent -> {
-            final Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            VBox dialogVbox = new VBox(20);
-            dialogVbox.getChildren().add(new Label("Name:"));
-            dialogVbox.getChildren().add(new TextField());
-            dialogVbox.getChildren().add(new Button("Save"));
-            dialogVbox.getChildren().add(new Button("Cancel"));
-            dialogVbox.setPadding(new Insets(10));
-            Scene dialogScene = new Scene(dialogVbox, 300, 200);
-            dialog.setScene(dialogScene);
-            dialog.show();
         });
     }
 
@@ -329,4 +316,6 @@ public class Main extends Application {
         }
         System.exit(0);
     }
+
+
 }

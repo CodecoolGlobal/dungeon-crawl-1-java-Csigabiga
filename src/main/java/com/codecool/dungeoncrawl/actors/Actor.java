@@ -6,7 +6,7 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 public abstract class Actor implements Drawable {
 
     protected Cell cell;
-    private int health;
+    protected int health;
     private final int defensePower;
     protected int attackPower;
 
@@ -18,17 +18,6 @@ public abstract class Actor implements Drawable {
         this.cell.setActor(this);
     }
 
-    public boolean move(int dx, int dy) {
-        Cell nextCell = cell.getNeighbor(dx, dy);
-        if (nextCell.getType().getTileName().matches("floor|floor1|floor2|corpse|closed|openedBlueDoor|trapRouteTile") &&
-             nextCell.getActor() == null) {
-            cell.setActor(null);
-            nextCell.setActor(this);
-            cell = nextCell;
-            return true;
-        }
-        return false;
-    }
 
     public int getHealth() {
         return health;

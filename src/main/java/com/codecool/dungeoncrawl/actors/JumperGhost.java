@@ -4,7 +4,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 
 import java.util.Random;
 
-public class JumperGhost extends Mob {
+public class JumperGhost extends Mob implements Move {
 
     Random random = new Random();
     private int x, y;
@@ -20,7 +20,7 @@ public class JumperGhost extends Mob {
 
     @Override
     public boolean move(int dx, int dy) {
-        if (getX() + dx < 21 && getX() + dx >= 0 && getY() + dy < 21 && getY() + dy >= 0) {
+        try {
             Cell nextCell = cell.getNeighbor(dx, dy);
             if (nextCell.getActor() == null) {
                 cell.setActor(null);
@@ -28,6 +28,8 @@ public class JumperGhost extends Mob {
                 cell = nextCell;
                 return true;
             }
+        } catch (Exception exception){
+        return false;
         }
         return false;
     }

@@ -7,7 +7,7 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 
-public class Player extends Actor {
+public class Player extends Actor implements Move{
 
     public String getPlayerName() {
         return playerName;
@@ -90,7 +90,13 @@ public class Player extends Actor {
 
     @Override
     public boolean move(int dx, int dy) {
-        super.move(dx, dy);
+        Cell nextCell = cell.getNeighbor(dx, dy);
+        if (nextCell.getType().getTileName().matches("floor|floor1|floor2|corpse|closed|openedBlueDoor|trapRouteTile") &&
+                nextCell.getActor() == null) {
+            cell.setActor(null);
+            nextCell.setActor(this);
+            cell = nextCell;
+        }
         if (getCell().getItem() != null) {
             if (getCell().getItem().getClass().getSimpleName().matches("Sword|Key|Shield")) {
                 Main.setButtonDisabledStatus(false);

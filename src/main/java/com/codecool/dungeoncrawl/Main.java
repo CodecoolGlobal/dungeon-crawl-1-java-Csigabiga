@@ -109,36 +109,35 @@ public class Main extends Application {
 
     public void setActionListener(Button btn) {
         if (pickUpButton.equals(btn)) {
-            pickUpButton.setOnAction(value -> {
-                setButtonDisabledStatus(true);
-                currentMap.getPlayer().addToInventory();
-                currentMap.getPlayer().checkBonuses();
-                currentMap.removeItem(currentMap.getPlayer().getCell().getItem());
-            });
-            saveButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    final Stage dialog = new Stage();
-                }
-            });
+            pickUp(pickUpButton);
         } else if (saveButton.equals(btn)) {
-            saveButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    final Stage dialog = new Stage();
-                    dialog.initModality(Modality.APPLICATION_MODAL);
-                    VBox dialogVbox = new VBox(20);
-                    dialogVbox.getChildren().add(new Label("Name:"));
-                    dialogVbox.getChildren().add(new TextField());
-                    dialogVbox.getChildren().add(new Button("Save"));
-                    dialogVbox.getChildren().add(new Button("Cancel"));
-                    dialogVbox.setPadding(new Insets(10));
-                    Scene dialogScene = new Scene(dialogVbox, 300, 200);
-                    dialog.setScene(dialogScene);
-                    dialog.show();
-                }
-            });
+            showModal(saveButton);
         }
+    }
+
+    public void pickUp(Button button) {
+        button.setOnAction(value -> {
+            setButtonDisabledStatus(true);
+            currentMap.getPlayer().addToInventory();
+            currentMap.getPlayer().checkBonuses();
+            currentMap.removeItem(currentMap.getPlayer().getCell().getItem());
+        });
+    }
+
+    public void showModal(Button button) {
+        button.setOnAction(actionEvent -> {
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            VBox dialogVbox = new VBox(20);
+            dialogVbox.getChildren().add(new Label("Name:"));
+            dialogVbox.getChildren().add(new TextField());
+            dialogVbox.getChildren().add(new Button("Save"));
+            dialogVbox.getChildren().add(new Button("Cancel"));
+            dialogVbox.setPadding(new Insets(10));
+            Scene dialogScene = new Scene(dialogVbox, 300, 200);
+            dialog.setScene(dialogScene);
+            dialog.show();
+        });
     }
 
 

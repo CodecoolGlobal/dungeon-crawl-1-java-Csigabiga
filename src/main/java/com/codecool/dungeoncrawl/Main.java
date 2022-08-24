@@ -124,6 +124,7 @@ public class Main extends Application {
                     Player currentPlayer = currentMap.getPlayer();
                     currentPlayer.setPlayerName(playerName);
                     dbManager.updatePlayer(currentPlayer);
+                    dbManager.updateGameState(SerializationDeserialization.serializeMap(currentMap),playerName);
                     didWeGetAnswer = false;
                 }
             }else if(playerName == null){
@@ -133,6 +134,7 @@ public class Main extends Application {
                 Player currentPlayer = currentMap.getPlayer();
                 currentPlayer.setPlayerName(playerName);
                 dbManager.savePlayer(currentPlayer);
+                dbManager.saveGameState(SerializationDeserialization.serializeMap(currentMap), dbManager.getPlayerModel(playerName));
                 didWeGetAnswer = false;
             }
         }

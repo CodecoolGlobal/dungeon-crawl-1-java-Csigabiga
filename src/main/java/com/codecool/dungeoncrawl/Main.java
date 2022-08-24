@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.logic.gamecycle.GameCycle;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.model.PlayerModel;
 import com.codecool.dungeoncrawl.utils.Modals;
 import com.codecool.dungeoncrawl.utils.SerializationDeserialization;
 import com.codecool.dungeoncrawl.utils.Style;

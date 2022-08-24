@@ -114,6 +114,13 @@ public class Main extends Application {
             exit();
         } else if (saveGame.match(keyEvent)) {
             saveGame();
+        } else if (loadGame.match(keyEvent)){
+            Modals.loadDialog();
+
+            // TODO proper load method
+            System.out.println(Arrays.toString(dbManager.getGameState(36).getCurrentMap()));
+            GameMap test = SerializationDeserialization.deSerializeMap(dbManager.getGameState(36).getCurrentMap());
+            currentMap = test;
         }
     }
 

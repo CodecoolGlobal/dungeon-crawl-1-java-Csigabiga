@@ -25,10 +25,6 @@ public class PlayerDaoJdbc implements PlayerDao {
             statement.setInt(3, player.getX());
             statement.setInt(4, player.getY());
             statement.executeUpdate();
-            // A ResultSet object maintains a cursor pointing to its current row of data.
-            // Initially the cursor is positioned before the first row.
-            // The next method moves the cursor to the next row, and because it returns false when there are no
-            // more rows in the ResultSet object, it can be used in a while loop to iterate through the result set.
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
             player.setId(resultSet.getInt(1));

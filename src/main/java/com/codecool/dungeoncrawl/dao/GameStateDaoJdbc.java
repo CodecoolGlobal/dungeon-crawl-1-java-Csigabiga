@@ -19,10 +19,9 @@ public class GameStateDaoJdbc implements GameStateDao {
 
     @Override
     public void add(GameState state) {
-        Date currentDate = new Date(System.currentTimeMillis());
-
+        // Date currentDate = new Date(System.currentTimeMillis());
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "INSERT INTO game_state (current_map, saved_at, player_id) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO game_state (current_map, player_id) VALUES (?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, state.getCurrentMap());
             statement.setDate(2, currentDate);
@@ -38,10 +37,8 @@ public class GameStateDaoJdbc implements GameStateDao {
 
     @Override
     public void update(GameState state) {
-        Date currentDate = new Date(System.currentTimeMillis());
-
         try(Connection connection = dataSource.getConnection()) {
-            String sql = "UPDATE game_state SET current_map = ?, saved_at = ?, player_id = ? WHERE id = ?";
+            String sql = "UPDATE game_state SET current_map = ?, saved_at = CURRENT_TIMESTAMP, player_id = ? WHERE id = ?";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, state.getCurrentMap());
             st.setDate(2, currentDate);

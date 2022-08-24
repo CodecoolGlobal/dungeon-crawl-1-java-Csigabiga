@@ -7,7 +7,7 @@ import com.codecool.dungeoncrawl.logic.gamecycle.GameCycle;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.utils.SaveModal;
+import com.codecool.dungeoncrawl.utils.Modals;
 import com.codecool.dungeoncrawl.utils.SerializationDeserialization;
 import com.codecool.dungeoncrawl.utils.Style;
 import com.codecool.dungeoncrawl.actors.Player;
@@ -18,22 +18,19 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -93,9 +90,12 @@ public class Main extends Application {
         pickUpButton.setFocusTraversable(false);
         saveButton.setFocusTraversable(false);
 
+        //TODO delete when done testing
         byte[] result = SerializationDeserialization.serializeMap(currentMap);
         System.out.println(Arrays.toString(result));
         SerializationDeserialization.deSerializeMap(result);
+        Date d = new Date();
+        System.out.println(d);
     }
 
     public static void setButtonDisabledStatus(boolean status) {
@@ -110,20 +110,40 @@ public class Main extends Application {
                 || exitCombinationWin.match(keyEvent)
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
-        }else if (saveGame.match(keyEvent)){
-            // CTRL+S button pressing the saveButton
-            saveButton.fire();
+        } else if (saveGame.match(keyEvent)) {
+            saveGame();
         }
     }
+
+    private void saveGame() {
+        boolean didWeGetAnswer = true;
+        while(didWeGetAnswer){
+            String playerName = Modals.inputDialog();
+            if (dbManager.checkPlayerNameInDb(playerName)){
+                if(Modals.confirmDialog()){
+                    Player currentPlayer = currentMap.getPlayer();
+                    currentPlayer.setPlayerName(playerName);
+                    dbManager.updatePlayer(currentPlayer);
+                    didWeGetAnswer = false;
+                }
+            }else if(playerName == null){
+                didWeGetAnswer = false;
+            }
+            else {
+                Player currentPlayer = currentMap.getPlayer();
+                currentPlayer.setPlayerName(playerName);
+                dbManager.savePlayer(currentPlayer);
+                didWeGetAnswer = false;
+            }
+        }
+    }
+
 
     public void setActionListener(Button btn) {
         if (pickUpButton.equals(btn)) {
             pickUp(pickUpButton);
         } else if (saveButton.equals(btn)) {
-            String test = SaveModal.showModal(btn, currentMap.getPlayer(), dbManager);
-            System.out.println(test);
-            System.out.println(test);
-
+            btn.setOnAction(actionEvent -> saveGame());
         }
     }
 

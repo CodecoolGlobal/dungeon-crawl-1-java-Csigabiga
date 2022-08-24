@@ -44,9 +44,7 @@ public class GameDatabaseManager {
         if (name == null){
             return false;
         }
-        boolean test = playerDao.isTherePlayerName(name);
-        return test;
-
+        return playerDao.isTherePlayerName(name);
     }
 
     private DataSource connect() throws SQLException {

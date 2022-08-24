@@ -10,11 +10,9 @@ import java.util.Base64;
 public class SerializationDeserialization implements Serializable {
 
     public static byte[] serializeMap(GameMap gameMap) {
-        byte[] valami = SerializationUtils.serialize(gameMap);
-        return valami;
+        return SerializationUtils.serialize(gameMap);
     }
     public static GameMap deSerializeMap(byte[] serializedMap){
-        GameMap output = SerializationUtils.deserialize(serializedMap);
-        return output;
+        return SerializationUtils.deserialize(serializedMap);
     }
 }

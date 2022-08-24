@@ -19,6 +19,9 @@ public class GameDatabaseManager {
         PlayerModel model = new PlayerModel(player);
         playerDao.add(model);
     }
+    public boolean checkPlayerNameInDb(String name) {
+        return playerDao.isTherePlayerName(name);
+    }
 
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();

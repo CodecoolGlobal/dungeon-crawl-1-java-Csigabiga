@@ -51,4 +51,17 @@ public class PlayerDaoJdbc implements PlayerDao {
     public List<PlayerModel> getAll() {
         return null;
     }
+
+    @Override
+    public boolean isTherePlayerName(String playerName){
+        try(Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT player_name FROM player WHERE player_name = ?";
+            PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, playerName);
+            ResultSet rs = st.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -4,6 +4,8 @@ import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Item;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 
@@ -13,7 +15,11 @@ public class Player extends Actor implements Move{
         return playerName;
     }
 
-    private final String playerName = "PLAYER";
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    private String playerName = "PLAYER";
     private int bonusAttack = 0;
     private int bonusShield = 0;
     public Player(Cell cell, int health, int attackPower, int defensePower) {

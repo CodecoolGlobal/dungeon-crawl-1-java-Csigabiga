@@ -12,8 +12,6 @@ import com.codecool.dungeoncrawl.utils.SerializationDeserialization;
 import com.codecool.dungeoncrawl.utils.Style;
 import com.codecool.dungeoncrawl.actors.Player;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -29,10 +27,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -94,6 +92,10 @@ public class Main extends Application {
         primaryStage.show();
         pickUpButton.setFocusTraversable(false);
         saveButton.setFocusTraversable(false);
+
+        byte[] result = SerializationDeserialization.serializeMap(currentMap);
+        System.out.println(Arrays.toString(result));
+        SerializationDeserialization.deSerializeMap(result);
     }
 
     public static void setButtonDisabledStatus(boolean status) {
@@ -103,10 +105,14 @@ public class Main extends Application {
     private void onKeyReleased(KeyEvent keyEvent) {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
+        KeyCombination saveGame = new KeyCodeCombination(KeyCode.H, KeyCombination.CONTROL_DOWN);
         if (exitCombinationMac.match(keyEvent)
                 || exitCombinationWin.match(keyEvent)
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
+        }else if (saveGame.match(keyEvent)){
+            // CTRL+S button pressing the saveButton
+            saveButton.fire();
         }
     }
 
@@ -114,7 +120,10 @@ public class Main extends Application {
         if (pickUpButton.equals(btn)) {
             pickUp(pickUpButton);
         } else if (saveButton.equals(btn)) {
-            showModal(saveButton);
+            String test = SaveModal.showModal(btn, currentMap.getPlayer(), dbManager);
+            System.out.println(test);
+            System.out.println(test);
+
         }
     }
 
@@ -185,10 +194,6 @@ public class Main extends Application {
                 Player player = currentMap.getPlayer();
                 dbManager.savePlayer(player);
                 break;
-        }
-        if (keyEvent.getCode() == KeyCode.CONTROL) {
-            ctrl = true;
-            System.out.println("ctrl");
         }
     }
 

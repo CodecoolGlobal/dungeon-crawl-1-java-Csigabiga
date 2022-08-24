@@ -24,7 +24,7 @@ public class GameStateDaoJdbc implements GameStateDao {
             String sql = "INSERT INTO game_state (current_map, player_id) VALUES (?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setBytes(1, state.getCurrentMap());
-            statement.setInt(2, state.getPlayer().getId());
+            statement.setInt(2, state.getPlayerId());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();

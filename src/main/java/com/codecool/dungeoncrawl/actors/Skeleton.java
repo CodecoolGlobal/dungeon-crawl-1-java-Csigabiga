@@ -4,13 +4,27 @@ import com.codecool.dungeoncrawl.logic.Cell;
 
 import java.util.Random;
 
-public class Skeleton extends Mob{
+public class Skeleton extends Mob implements Move{
 
     Random random = new Random();
 
 
     public Skeleton(Cell cell, int health, int attackPower, int defensePower) {
         super(cell, health, attackPower, defensePower, "skeleton0");
+    }
+
+
+    @Override
+    public boolean move(int dx, int dy) {
+        Cell nextCell = cell.getNeighbor(dx, dy);
+        if (nextCell.getType().getTileName().matches("floor|floor1|floor2|corpse|closed|openedBlueDoor|trapRouteTile") &&
+                nextCell.getActor() == null) {
+            cell.setActor(null);
+            nextCell.setActor(this);
+            cell = nextCell;
+            return true;
+        }
+        return false;
     }
 
 

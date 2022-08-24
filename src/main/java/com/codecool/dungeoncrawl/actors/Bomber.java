@@ -28,6 +28,7 @@ public class Bomber extends Mob{
                     }
                     break;
                 case "explode":
+                    health = 0;
                     tileName = "floor";
                     cell.setType(CellType.FLOOR);
                     cell.setActor(null);
@@ -37,6 +38,7 @@ public class Bomber extends Mob{
             if (tileName.equals("ready")) {
                 tileName = "explode";
             } else if (tileName.equals("explode")) {
+                health = 0;
                 tileName = "floor";
                 cell.setType(CellType.FLOOR);
                 cell.setActor(null);

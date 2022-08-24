@@ -2,11 +2,24 @@ package com.codecool.dungeoncrawl.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 
-public class ThreeMusketeers extends Mob{
+public class ThreeMusketeers extends Mob implements Move{
 
 
     public ThreeMusketeers(Cell cell, int health, int attackPower, int defensePower) {
         super(cell, health, attackPower, defensePower, "musketeer");
+    }
+
+    @Override
+    public boolean move(int dx, int dy) {
+        Cell nextCell = cell.getNeighbor(dx, dy);
+        if (nextCell.getType().getTileName().matches("floor|floor1|floor2|corpse|closed|openedBlueDoor|trapRouteTile") &&
+                nextCell.getActor() == null) {
+            cell.setActor(null);
+            nextCell.setActor(this);
+            cell = nextCell;
+            return true;
+        }
+        return false;
     }
 
 
@@ -41,13 +54,14 @@ public class ThreeMusketeers extends Mob{
     private Actor isPlayerNear(int x, int y) {
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                if (getCell().getX() + x + i >= 0 && getCell().getX() + x + i <= 24 && getCell().getY() + y + j >= 0 && getCell().getY() + y + j <= 21) {
-                    if (getCell().getNeighbor(x + i, y + j).getActor() != null) {
-                        if (getCell().getNeighbor(x + i, y + j).getActor().getTileName().equals("player")) {
-                            return getCell().getNeighbor(x + i, y + j).getActor();
+                try {
+                    Actor actor = getCell().getNeighbor(x + i, y + j).getActor();
+                    if (actor != null) {
+                        if (actor.getTileName().equals("player")) {
+                            return actor;
                         }
                     }
-                }
+                } catch (Exception exception) {return  null;}
             }
         }
         return null;

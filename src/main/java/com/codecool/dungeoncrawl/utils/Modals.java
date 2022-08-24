@@ -2,6 +2,8 @@ package com.codecool.dungeoncrawl.utils;
 
 import javafx.scene.control.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class Modals {
@@ -64,5 +66,25 @@ public class Modals {
         } else {
             return false;
         }
+    }
+    public static void loadDialog(){
+        List<String> choices = new ArrayList<>();
+        choices.add("a");
+        choices.add("b");
+        choices.add("c");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("b", choices);
+        dialog.setTitle("Choice Dialog");
+        dialog.setHeaderText("Look, a Choice Dialog");
+        dialog.setContentText("Choose your letter:");
+
+// Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("Your choice: " + result.get());
+        }
+
+// The Java 8 way to get the response value (with lambda expression).
+        result.ifPresent(letter -> System.out.println("Your choice: " + letter));
     }
 }

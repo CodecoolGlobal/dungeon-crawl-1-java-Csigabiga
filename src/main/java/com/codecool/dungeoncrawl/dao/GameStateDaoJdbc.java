@@ -48,23 +48,37 @@ public class GameStateDaoJdbc implements GameStateDao {
     }
 
     @Override
-    public GameState get(int id) {
-        try(Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT current_map, saved_at, player_id FROM game_state WHERE id = ?";
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            if (!rs.next()) {
-                return null;
-            }
-/*            GameState gameState = new GameState(rs.getString(1), rs.getString(2), rs.getDate(3));
-            gameState.setId(id);
-            return gameState;*/
+    public GameState get(int playerId) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, current_map , player_id FROM game_state WHERE player_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1,playerId);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            GameState gameState = new GameState(rs.getBytes(2));
+            gameState.setId(rs.getInt(1));
+            return gameState;
         } catch (SQLException e) {
-            throw new RuntimeException("Error while reading gamestates with id: " + id, e);
+            throw new RuntimeException("Error while getting gameState with player_id", e);
         }
-        return null;
     }
+//    public GameState get(int id) {
+//        try(Connection connection = dataSource.getConnection()) {
+//            String sql = "SELECT current_map, saved_at, player_id FROM game_state WHERE id = ?";
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setInt(1, id);
+//            ResultSet rs = st.executeQuery();
+//            if (!rs.next()) {
+//                return null;
+//            }
+///*            GameState gameState = new GameState(rs.getString(1), rs.getString(2), rs.getDate(3));
+//            gameState.setId(id);
+//            return gameState;*/
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Error while reading gamestates with id: " + id, e);
+//        }
+//        return null;
+//    }
 
     @Override
     public List<GameState> getAll() {

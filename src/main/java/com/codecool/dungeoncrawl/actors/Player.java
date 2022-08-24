@@ -11,21 +11,21 @@ import java.util.StringJoiner;
 
 public class Player extends Actor implements Move{
 
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    private String playerName = "PLAYER";
-    private int bonusAttack = 0;
-    private int bonusShield = 0;
     public Player(Cell cell, int health, int attackPower, int defensePower) {
         super(cell, health, attackPower, defensePower);
     }
+
+    private String playerName = "PLAYER";
+
+    private int bonusAttack = 0;
+    private int bonusShield = 0;
     private final ArrayList<Item> items = new ArrayList<>();
+    public String getPlayerName() {
+        return playerName;
+    }
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
 
     public String interact(int dx, int dy){
         Cell nextCell = this.getCell().getNeighbor(dx, dy);

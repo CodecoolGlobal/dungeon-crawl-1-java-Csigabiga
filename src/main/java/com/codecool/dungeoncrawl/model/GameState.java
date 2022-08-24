@@ -34,6 +34,9 @@ public class GameState extends BaseModel {
     public PlayerModel getPlayer() {
         return player;
     }
+    public int getPlayerId(){
+        return player.getId();
+    }
 
     public void setPlayer(PlayerModel player) {
         this.player = player;

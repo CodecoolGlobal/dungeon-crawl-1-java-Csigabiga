@@ -8,7 +8,7 @@ import java.util.*;
 public class GameMap {
     private final int width;
     private final int height;
-    private final Cell[][] cells;
+    private Cell[][] cells;
     private final List<Mob> mobs;
     private final List<Item> items;
     private Player player;

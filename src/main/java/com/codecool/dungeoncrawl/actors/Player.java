@@ -4,22 +4,28 @@ import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Item;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 
 public class Player extends Actor implements Move{
 
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    private final String playerName = "PLAYER";
-    private int bonusAttack = 0;
-    private int bonusShield = 0;
     public Player(Cell cell, int health, int attackPower, int defensePower) {
         super(cell, health, attackPower, defensePower);
     }
+
+    private String playerName = "PLAYER";
+
+    private int bonusAttack = 0;
+    private int bonusShield = 0;
     private final ArrayList<Item> items = new ArrayList<>();
+    public String getPlayerName() {
+        return playerName;
+    }
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
 
     public String interact(int dx, int dy){
         Cell nextCell = this.getCell().getNeighbor(dx, dy);

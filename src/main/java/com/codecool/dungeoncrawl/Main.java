@@ -7,32 +7,31 @@ import com.codecool.dungeoncrawl.logic.gamecycle.GameCycle;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.model.PlayerModel;
+import com.codecool.dungeoncrawl.utils.Modals;
+import com.codecool.dungeoncrawl.utils.SerializationDeserialization;
 import com.codecool.dungeoncrawl.utils.Style;
 import com.codecool.dungeoncrawl.actors.Player;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -91,6 +90,13 @@ public class Main extends Application {
         primaryStage.show();
         pickUpButton.setFocusTraversable(false);
         saveButton.setFocusTraversable(false);
+
+        //TODO delete when done testing
+        byte[] result = SerializationDeserialization.serializeMap(currentMap);
+        System.out.println(Arrays.toString(result));
+        SerializationDeserialization.deSerializeMap(result);
+        Date d = new Date();
+        System.out.println(d);
     }
 
     public static void setButtonDisabledStatus(boolean status) {
@@ -100,18 +106,55 @@ public class Main extends Application {
     private void onKeyReleased(KeyEvent keyEvent) {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
+        KeyCombination saveGame = new KeyCodeCombination(KeyCode.H, KeyCombination.CONTROL_DOWN);
+        KeyCombination loadGame = new KeyCodeCombination(KeyCode.J, KeyCombination.CONTROL_DOWN);
         if (exitCombinationMac.match(keyEvent)
                 || exitCombinationWin.match(keyEvent)
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
+        } else if (saveGame.match(keyEvent)) {
+            saveGame();
+        } else if (loadGame.match(keyEvent)){
+            Modals.loadDialog();
+
+            // TODO proper load method
+            System.out.println(Arrays.toString(dbManager.getGameState(36).getCurrentMap()));
+            GameMap test = SerializationDeserialization.deSerializeMap(dbManager.getGameState(36).getCurrentMap());
+            currentMap = test;
         }
     }
+
+    private void saveGame() {
+        boolean didWeGetAnswer = true;
+        while(didWeGetAnswer){
+            String playerName = Modals.inputDialog();
+            if (dbManager.checkPlayerNameInDb(playerName)){
+                if(Modals.confirmDialog()){
+                    Player currentPlayer = currentMap.getPlayer();
+                    currentPlayer.setPlayerName(playerName);
+                    dbManager.updatePlayer(currentPlayer);
+                    dbManager.updateGameState(SerializationDeserialization.serializeMap(currentMap),playerName);
+                    didWeGetAnswer = false;
+                }
+            }else if(playerName == null){
+                didWeGetAnswer = false;
+            }
+            else {
+                Player currentPlayer = currentMap.getPlayer();
+                currentPlayer.setPlayerName(playerName);
+                dbManager.savePlayer(currentPlayer);
+                dbManager.saveGameState(SerializationDeserialization.serializeMap(currentMap), dbManager.getPlayerModel(playerName));
+                didWeGetAnswer = false;
+            }
+        }
+    }
+
 
     public void setActionListener(Button btn) {
         if (pickUpButton.equals(btn)) {
             pickUp(pickUpButton);
         } else if (saveButton.equals(btn)) {
-            showModal(saveButton);
+            btn.setOnAction(actionEvent -> saveGame());
         }
     }
 
@@ -121,22 +164,6 @@ public class Main extends Application {
             currentMap.getPlayer().addToInventory();
             currentMap.getPlayer().checkBonuses();
             currentMap.removeItem(currentMap.getPlayer().getCell().getItem());
-        });
-    }
-
-    public void showModal(Button button) {
-        button.setOnAction(actionEvent -> {
-            final Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            VBox dialogVbox = new VBox(20);
-            dialogVbox.getChildren().add(new Label("Name:"));
-            dialogVbox.getChildren().add(new TextField());
-            dialogVbox.getChildren().add(new Button("Save"));
-            dialogVbox.getChildren().add(new Button("Cancel"));
-            dialogVbox.setPadding(new Insets(10));
-            Scene dialogScene = new Scene(dialogVbox, 300, 200);
-            dialog.setScene(dialogScene);
-            dialog.show();
         });
     }
 
@@ -198,10 +225,6 @@ public class Main extends Application {
                 Player player = currentMap.getPlayer();
                 dbManager.savePlayer(player);
                 break;
-        }
-        if (keyEvent.getCode() == KeyCode.CONTROL) {
-            ctrl = true;
-            System.out.println("ctrl");
         }
     }
 
@@ -329,4 +352,6 @@ public class Main extends Application {
         }
         System.exit(0);
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 
+import java.io.Serializable;
 import java.util.Random;
 
 public class Skeleton extends Mob implements Move{

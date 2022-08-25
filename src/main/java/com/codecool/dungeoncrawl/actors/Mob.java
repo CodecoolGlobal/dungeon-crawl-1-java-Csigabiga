@@ -3,7 +3,9 @@ package com.codecool.dungeoncrawl.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 
-public abstract class Mob extends Actor {
+import java.io.Serializable;
+
+public abstract class Mob extends Actor implements Serializable {
 
     protected String tileName;
 

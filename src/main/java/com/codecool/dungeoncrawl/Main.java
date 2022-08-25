@@ -124,13 +124,16 @@ public class Main extends Application {
         } else if (saveGame.match(keyEvent)) {
             saveGame();
         } else if (loadGame.match(keyEvent)){
-            int player_Id = Modals.loadDialog(dbManager.getAllPlayers());
-            if( player_Id != 0){
-                currentMap = SerializationDeserialization.deSerializeMap(dbManager.getGameState(player_Id).getCurrentMap());
-                gameCycle = new GameCycle(currentMap, this::refresh);
-                start = false;
-            };
+            loadGame();
         }
+    }
+    private void loadGame() {
+        int player_Id = Modals.loadDialog(dbManager.getAllPlayers());
+        if( player_Id != 0){
+            currentMap = SerializationDeserialization.deSerializeMap(dbManager.getGameState(player_Id).getCurrentMap());
+            gameCycle = new GameCycle(currentMap, this::refresh);
+            start = false;
+        };
     }
 
     private void saveGame() {
@@ -158,9 +161,7 @@ public class Main extends Application {
         }
     }
 
-    private void loadGame() {
-        Modals.loadDialog(dbManager.getAllPlayers());
-    }
+
 
     private void importGameState() {
         FileChooserModal fileChooserModal = new FileChooserModal();

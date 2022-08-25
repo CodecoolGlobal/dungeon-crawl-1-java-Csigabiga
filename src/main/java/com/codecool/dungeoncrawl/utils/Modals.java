@@ -87,5 +87,6 @@ public class Modals {
         if (result.isPresent()) {
             //TODO ide rakd csabi mert okos vagy :)
         }
+        return 0;
     }
 }

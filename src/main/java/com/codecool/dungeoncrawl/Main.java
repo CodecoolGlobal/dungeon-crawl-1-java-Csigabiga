@@ -14,6 +14,7 @@ import com.codecool.dungeoncrawl.utils.Style;
 import com.codecool.dungeoncrawl.actors.Player;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -51,6 +52,7 @@ public class Main extends Application {
     Label inventoryLabel = new Label();
     public static Button pickUpButton;
     public static Button saveButton;
+    public static Button loadButton;
     GameDatabaseManager dbManager;
 
     public static void main(String[] args) {
@@ -63,17 +65,26 @@ public class Main extends Application {
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
+        ui.setVgap(10.0);
+        ui.setHgap(5.0);
+        ui.setAlignment(Pos.BASELINE_CENTER);
 
-        ui.add(new Label("Health: "), 0, 0);
-        ui.add(healthLabel, 1, 0);
+        /*ui.add(new Label("Health: "), 0, 0);
+        ui.add(healthLabel, 1, 0);*/
+/*        ui.add(new Label("Health: "), 0, 0);
+        ui.add(healthLabel, 1, 0);*/
         ui.add(pickUpButton = new Button("Pick up"), 0, 1);
-        ui.add(saveButton = new Button("Save"), 1, 1);
+        ui.add(saveButton = new Button("Save"), 0, 3);
+        ui.add(loadButton = new Button("Load game"), 1, 3);
         Style.setGrey(pickUpButton);
-        ui.add(new Label("Inventory: "), 0, 3);
-        ui.add(inventoryLabel, 0, 4);
+        Style.setGrey(loadButton);
+        Style.setReddish(saveButton);
+//        ui.add(new Label("Inventory: "), 0, 7);
+//        ui.add(inventoryLabel, 0, 4);
         setButtonDisabledStatus(true);
         setActionListener(pickUpButton);
         setActionListener(saveButton);
+        setActionListener(loadButton);
 
         BorderPane borderPane = new BorderPane();
 
@@ -90,6 +101,7 @@ public class Main extends Application {
         primaryStage.show();
         pickUpButton.setFocusTraversable(false);
         saveButton.setFocusTraversable(false);
+        loadButton.setFocusTraversable(false);
 
         //TODO delete when done testing
         byte[] result = SerializationDeserialization.serializeMap(currentMap);
@@ -149,12 +161,18 @@ public class Main extends Application {
         }
     }
 
+    private void loadGame() {
+        Modals.loadDialog(dbManager.getAllPlayers());
+    }
+
 
     public void setActionListener(Button btn) {
         if (pickUpButton.equals(btn)) {
             pickUp(pickUpButton);
         } else if (saveButton.equals(btn)) {
             btn.setOnAction(actionEvent -> saveGame());
+        } else if (loadButton.equals(btn)) {
+            btn.setOnAction(actionEvent -> loadGame());
         }
     }
 

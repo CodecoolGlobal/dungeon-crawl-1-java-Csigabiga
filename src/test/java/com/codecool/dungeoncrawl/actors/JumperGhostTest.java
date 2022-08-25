@@ -90,6 +90,7 @@ class JumperGhostTest {
         }
         jumperGhost.mobRound();
         jumperGhost.mobRound();
+        jumperGhost.mobRound();
         if (6 == player.getHealth() || 6 == player2.getHealth() || 6 == player3.getHealth() || 6 == player4.getHealth()) {
             assertion = true;
         }

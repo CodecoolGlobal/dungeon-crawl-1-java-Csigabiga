@@ -7,7 +7,7 @@ import com.codecool.dungeoncrawl.logic.gamecycle.GameCycle;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.model.PlayerModel;
+import com.codecool.dungeoncrawl.utils.FileChooserModal;
 import com.codecool.dungeoncrawl.utils.Modals;
 import com.codecool.dungeoncrawl.utils.SerializationDeserialization;
 import com.codecool.dungeoncrawl.utils.Style;
@@ -27,12 +27,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -56,6 +55,7 @@ public class Main extends Application {
     public static Button importButton;
     public static Button exportButton;
     GameDatabaseManager dbManager;
+    Stage primaryStage;
 
     public static void main(String[] args) {
         launch(args);
@@ -63,6 +63,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
         setupDbManager();
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
@@ -70,11 +71,6 @@ public class Main extends Application {
         ui.setVgap(10.0);
         ui.setHgap(5.0);
         ui.setAlignment(Pos.BASELINE_CENTER);
-
-        /*ui.add(new Label("Health: "), 0, 0);
-        ui.add(healthLabel, 1, 0);*/
-/*        ui.add(new Label("Health: "), 0, 0);
-        ui.add(healthLabel, 1, 0);*/
         ui.add(pickUpButton = new Button("Pick up"), 0, 1);
         ui.add(saveButton = new Button("Save"), 0, 3);
         ui.add(loadButton = new Button("Load game"), 1, 3);
@@ -85,12 +81,12 @@ public class Main extends Application {
         Style.setGrey(importButton);
         Style.setGrey(exportButton);
         Style.setReddish(saveButton);
-//        ui.add(new Label("Inventory: "), 0, 7);
-//        ui.add(inventoryLabel, 0, 4);
         setButtonDisabledStatus(true);
         setActionListener(pickUpButton);
         setActionListener(saveButton);
         setActionListener(loadButton);
+        setActionListener(importButton);
+        setActionListener(exportButton);
 
         BorderPane borderPane = new BorderPane();
 
@@ -166,6 +162,13 @@ public class Main extends Application {
         Modals.loadDialog(dbManager.getAllPlayers());
     }
 
+    private void importGameState() {
+        FileChooserModal fileChooserModal = new FileChooserModal();
+        String selectedFilePath = fileChooserModal.importMethod(primaryStage);
+        if (selectedFilePath != null) {
+            System.out.println(selectedFilePath);
+        }
+    }
 
     public void setActionListener(Button btn) {
         if (pickUpButton.equals(btn)) {
@@ -174,6 +177,8 @@ public class Main extends Application {
             btn.setOnAction(actionEvent -> saveGame());
         } else if (loadButton.equals(btn)) {
             btn.setOnAction(actionEvent -> loadGame());
+        } else if (importButton.equals(btn)) {
+            btn.setOnAction(actionEvent -> importGameState());
         }
     }
 
@@ -220,7 +225,6 @@ public class Main extends Application {
                 break;
             case A:
                 playerInteraction(-1, 0);
-
                 break;
             case D:
                 playerInteraction(1, 0);

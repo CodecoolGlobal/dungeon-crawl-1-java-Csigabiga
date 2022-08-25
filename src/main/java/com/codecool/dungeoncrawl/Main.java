@@ -232,10 +232,6 @@ public class Main extends Application {
                     gameCycle = new GameCycle(currentMap, this::refresh);
                     refresh();
                 }
-            case M:
-                Player player = currentMap.getPlayer();
-                dbManager.savePlayer(player);
-                break;
         }
     }
 

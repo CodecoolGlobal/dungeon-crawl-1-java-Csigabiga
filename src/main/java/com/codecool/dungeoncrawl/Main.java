@@ -7,10 +7,7 @@ import com.codecool.dungeoncrawl.logic.gamecycle.GameCycle;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.utils.FileChooserModal;
-import com.codecool.dungeoncrawl.utils.Modals;
-import com.codecool.dungeoncrawl.utils.SerializationDeserialization;
-import com.codecool.dungeoncrawl.utils.Style;
+import com.codecool.dungeoncrawl.utils.*;
 import com.codecool.dungeoncrawl.actors.Player;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -30,6 +27,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -167,7 +165,32 @@ public class Main extends Application {
         FileChooserModal fileChooserModal = new FileChooserModal();
         String selectedFilePath = fileChooserModal.importMethod(primaryStage);
         if (selectedFilePath != null) {
-            System.out.println(selectedFilePath);
+            File file = new File(selectedFilePath);
+            FileInputStream fin = null;
+            try {
+                fin = new FileInputStream(file);
+                byte[] fileContent = new byte[(int)file.length()];
+                fin.read(fileContent);
+                currentMap = SerializationDeserialization.deSerializeMap(fileContent);
+                gameCycle = new GameCycle(currentMap, this::refresh);
+                start = false;
+            }
+            catch (FileNotFoundException e) {
+                System.out.println("File not found" + e);
+            }
+            catch (IOException ioe) {
+                System.out.println("Exception while reading file " + ioe);
+            }
+            finally {
+                try {
+                    if (fin != null) {
+                        fin.close();
+                    }
+                }
+                catch (IOException ioe) {
+                    System.out.println("Error while closing stream: " + ioe);
+                }
+            }
         }
     }
 

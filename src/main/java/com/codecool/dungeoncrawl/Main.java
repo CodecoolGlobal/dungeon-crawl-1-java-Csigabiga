@@ -102,13 +102,6 @@ public class Main extends Application {
         pickUpButton.setFocusTraversable(false);
         saveButton.setFocusTraversable(false);
         loadButton.setFocusTraversable(false);
-
-        //TODO delete when done testing
-        byte[] result = SerializationDeserialization.serializeMap(currentMap);
-        System.out.println(Arrays.toString(result));
-        SerializationDeserialization.deSerializeMap(result);
-        Date d = new Date();
-        System.out.println(d);
     }
 
     public static void setButtonDisabledStatus(boolean status) {

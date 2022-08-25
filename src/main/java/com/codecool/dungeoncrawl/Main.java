@@ -193,6 +193,22 @@ public class Main extends Application {
         }
     }
 
+    private void exportGameState() {
+        FileSaverModal fileSaverModal = new FileSaverModal();
+        String selectedFilePath = fileSaverModal.exportMethod(primaryStage);
+        byte[] fileContent = SerializationDeserialization.serializeMap(currentMap);
+        if (selectedFilePath != null) {
+            try {
+                FileOutputStream fos = new FileOutputStream(selectedFilePath);
+                fos.write(fileContent);
+                fos.flush();
+                fos.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     public void setActionListener(Button btn) {
         if (pickUpButton.equals(btn)) {
             pickUp(pickUpButton);

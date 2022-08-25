@@ -120,12 +120,12 @@ public class Main extends Application {
         } else if (saveGame.match(keyEvent)) {
             saveGame();
         } else if (loadGame.match(keyEvent)){
-            Modals.loadDialog(dbManager.getAllPlayers());
-
-            // TODO proper load method
-            System.out.println(Arrays.toString(dbManager.getGameState(36).getCurrentMap()));
-            GameMap test = SerializationDeserialization.deSerializeMap(dbManager.getGameState(36).getCurrentMap());
-            currentMap = test;
+            int player_Id = Modals.loadDialog(dbManager.getAllPlayers());
+            if( player_Id != 0){
+                currentMap = SerializationDeserialization.deSerializeMap(dbManager.getGameState(player_Id).getCurrentMap());
+                gameCycle = new GameCycle(currentMap, this::refresh);
+                start = false;
+            };
         }
     }
 

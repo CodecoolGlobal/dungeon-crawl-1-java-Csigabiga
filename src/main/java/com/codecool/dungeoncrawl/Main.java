@@ -108,6 +108,8 @@ public class Main extends Application {
         pickUpButton.setFocusTraversable(false);
         saveButton.setFocusTraversable(false);
         loadButton.setFocusTraversable(false);
+        importButton.setFocusTraversable(false);
+        exportButton.setFocusTraversable(false);
     }
 
     public static void setButtonDisabledStatus(boolean status) {

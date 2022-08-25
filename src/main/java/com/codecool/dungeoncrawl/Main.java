@@ -218,6 +218,8 @@ public class Main extends Application {
             btn.setOnAction(actionEvent -> loadGame());
         } else if (importButton.equals(btn)) {
             btn.setOnAction(actionEvent -> importGameState());
+        }else if (exportButton.equals(btn)){
+            btn.setOnAction(actionEvent -> exportGameState());
         }
     }
 

@@ -18,6 +18,9 @@ public class GameDatabaseManager {
         playerDao = new PlayerDaoJdbc(dataSource);
         gameStateDao = new GameStateDaoJdbc(dataSource);
     }
+    public List<PlayerModel> getAllPlayers(){
+        return playerDao.getAll();
+    }
 
     public void savePlayer(Player player) {
         PlayerModel model = new PlayerModel(player);

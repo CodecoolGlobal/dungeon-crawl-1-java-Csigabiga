@@ -115,7 +115,7 @@ public class Main extends Application {
         } else if (saveGame.match(keyEvent)) {
             saveGame();
         } else if (loadGame.match(keyEvent)){
-            Modals.loadDialog();
+            Modals.loadDialog(dbManager.getAllPlayers());
 
             // TODO proper load method
             System.out.println(Arrays.toString(dbManager.getGameState(36).getCurrentMap()));

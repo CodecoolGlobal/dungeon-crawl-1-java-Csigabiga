@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.utils;
 
+import com.codecool.dungeoncrawl.model.PlayerModel;
 import javafx.scene.control.*;
 
 import java.util.ArrayList;
@@ -41,50 +42,50 @@ public class Modals {
 //        return null;
 //    }
 
-    public static String inputDialog(){
+    public static String inputDialog() {
         TextInputDialog dialog = new TextInputDialog("player");
         dialog.setTitle("Save Game");
         dialog.setHeaderText("To save the game enter a 'NAME' for your player!");
         dialog.setContentText("Please enter your name:");
 
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
+        if (result.isPresent()) {
             System.out.println(result.get());
             return result.get();
         }
         return null;
     }
-    public static boolean confirmDialog(){
+
+    public static boolean confirmDialog() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm");
         alert.setHeaderText("Look, a Confirmation Dialog");
         alert.setContentText("Are you ok with this?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
+        if (result.get() == ButtonType.OK) {
             return true;
         } else {
             return false;
         }
     }
-    public static void loadDialog(){
+
+    public static int loadDialog(List<PlayerModel> playerModels) {
         List<String> choices = new ArrayList<>();
-        choices.add("a");
-        choices.add("b");
-        choices.add("c");
+        for (PlayerModel playerModel :
+                playerModels) {
+            choices.add(playerModel.getPlayerName());
 
-        ChoiceDialog<String> dialog = new ChoiceDialog<>("b", choices);
-        dialog.setTitle("Choice Dialog");
-        dialog.setHeaderText("Look, a Choice Dialog");
-        dialog.setContentText("Choose your letter:");
-
-// Traditional way to get the response value.
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
-            System.out.println("Your choice: " + result.get());
         }
 
-// The Java 8 way to get the response value (with lambda expression).
-        result.ifPresent(letter -> System.out.println("Your choice: " + letter));
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(choices.get(0), choices);
+        dialog.setTitle("Load Game");
+        dialog.setHeaderText("Choose a Player Name to load the saved state");
+        dialog.setContentText("Choose a name:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            //TODO ide rakd csabi mert okos vagy :)
+        }
     }
 }

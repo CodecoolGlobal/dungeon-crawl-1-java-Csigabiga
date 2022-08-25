@@ -87,7 +87,6 @@ public class Modals {
             for (PlayerModel player:
                  playerModels) {
                 if(player.getPlayerName().equals(result.get())){
-                    System.out.println(player.getId());
                     return player.getId();
                 }
             }

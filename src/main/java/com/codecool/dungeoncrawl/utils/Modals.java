@@ -77,7 +77,6 @@ public class Modals {
             choices.add(playerModel.getPlayerName());
 
         }
-
         ChoiceDialog<String> dialog = new ChoiceDialog<>(choices.get(0), choices);
         dialog.setTitle("Load Game");
         dialog.setHeaderText("Choose a Player Name to load the saved state");
@@ -85,7 +84,13 @@ public class Modals {
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
-            //TODO ide rakd csabi mert okos vagy :)
+            for (PlayerModel player:
+                 playerModels) {
+                if(player.getPlayerName().equals(result.get())){
+                    System.out.println(player.getId());
+                    return player.getId();
+                }
+            }
         }
         return 0;
     }

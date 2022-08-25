@@ -108,13 +108,6 @@ public class Main extends Application {
         pickUpButton.setFocusTraversable(false);
         saveButton.setFocusTraversable(false);
         loadButton.setFocusTraversable(false);
-
-        //TODO delete when done testing
-        byte[] result = SerializationDeserialization.serializeMap(currentMap);
-        System.out.println(Arrays.toString(result));
-        SerializationDeserialization.deSerializeMap(result);
-        Date d = new Date();
-        System.out.println(d);
     }
 
     public static void setButtonDisabledStatus(boolean status) {
@@ -133,12 +126,12 @@ public class Main extends Application {
         } else if (saveGame.match(keyEvent)) {
             saveGame();
         } else if (loadGame.match(keyEvent)){
-            Modals.loadDialog(dbManager.getAllPlayers());
-
-            // TODO proper load method
-            System.out.println(Arrays.toString(dbManager.getGameState(36).getCurrentMap()));
-            GameMap test = SerializationDeserialization.deSerializeMap(dbManager.getGameState(36).getCurrentMap());
-            currentMap = test;
+            int player_Id = Modals.loadDialog(dbManager.getAllPlayers());
+            if( player_Id != 0){
+                currentMap = SerializationDeserialization.deSerializeMap(dbManager.getGameState(player_Id).getCurrentMap());
+                gameCycle = new GameCycle(currentMap, this::refresh);
+                start = false;
+            };
         }
     }
 
@@ -245,10 +238,6 @@ public class Main extends Application {
                     gameCycle = new GameCycle(currentMap, this::refresh);
                     refresh();
                 }
-            case M:
-                Player player = currentMap.getPlayer();
-                dbManager.savePlayer(player);
-                break;
         }
     }
 

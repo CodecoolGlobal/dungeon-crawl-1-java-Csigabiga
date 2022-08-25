@@ -7,6 +7,7 @@ import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.List;
 
 public class GameDatabaseManager {
     private PlayerDao playerDao;
@@ -51,8 +52,8 @@ public class GameDatabaseManager {
 
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        String dbName = "dungeon-crawler";
-        String user = "csaba";
+        String dbName = "DungeonCrawl";
+        String user = "tga";
         String password = "jelszo";
 
         dataSource.setDatabaseName(dbName);

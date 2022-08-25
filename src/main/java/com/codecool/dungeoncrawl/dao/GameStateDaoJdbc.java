@@ -62,35 +62,18 @@ public class GameStateDaoJdbc implements GameStateDao {
             throw new RuntimeException("Error while getting gameState with player_id", e);
         }
     }
-//    public GameState get(int id) {
-//        try(Connection connection = dataSource.getConnection()) {
-//            String sql = "SELECT current_map, saved_at, player_id FROM game_state WHERE id = ?";
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setInt(1, id);
-//            ResultSet rs = st.executeQuery();
-//            if (!rs.next()) {
-//                return null;
-//            }
-///*            GameState gameState = new GameState(rs.getString(1), rs.getString(2), rs.getDate(3));
-//            gameState.setId(id);
-//            return gameState;*/
-//        } catch (SQLException e) {
-//            throw new RuntimeException("Error while reading gamestates with id: " + id, e);
-//        }
-//        return null;
-//    }
 
     @Override
     public List<GameState> getAll() {
         try(Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT current_map, saved_at, player_id FROM game_state";
+            String sql = "SELECT id, current_map, saved_at, player_id FROM game_state";
             ResultSet rs = connection.createStatement().executeQuery(sql);
             List<GameState> result = new ArrayList<>();
-            //while (rs.next()) {
-                /*GameState gameState = new GameState(rs.getString(2), rs.getDate(3), rs.getObject(4));
+            while (rs.next()) {
+                GameState gameState = new GameState(rs.getBytes(2));
                 gameState.setId(rs.getInt(1));
-                result.add(gameState);*/
-            //}
+                result.add(gameState);
+            }
             return result;
         } catch (SQLException e) {
             throw new RuntimeException("Error while reading all gamestates", e);

@@ -1,9 +1,11 @@
+
 package com.codecool.dungeoncrawl.dao;
 
 import com.codecool.dungeoncrawl.model.PlayerModel;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerDaoJdbc implements PlayerDao {
@@ -69,7 +71,19 @@ public class PlayerDaoJdbc implements PlayerDao {
 
     @Override
     public List<PlayerModel> getAll() {
-        return null;
+        try(Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT id, player_name, hp, x, y FROM player";
+            ResultSet rs = connection.createStatement().executeQuery(sql);
+            List<PlayerModel> result = new ArrayList<>();
+            while (rs.next()) {
+                PlayerModel playerModel = new PlayerModel(rs.getString(2), rs.getInt(4), rs.getInt(5));
+                playerModel.setId(rs.getInt(1));
+                result.add(playerModel);
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while reading all players", e);
+        }
     }
 
     @Override

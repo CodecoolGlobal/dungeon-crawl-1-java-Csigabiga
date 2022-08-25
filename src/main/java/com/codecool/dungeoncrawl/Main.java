@@ -53,6 +53,8 @@ public class Main extends Application {
     public static Button pickUpButton;
     public static Button saveButton;
     public static Button loadButton;
+    public static Button importButton;
+    public static Button exportButton;
     GameDatabaseManager dbManager;
 
     public static void main(String[] args) {
@@ -76,8 +78,12 @@ public class Main extends Application {
         ui.add(pickUpButton = new Button("Pick up"), 0, 1);
         ui.add(saveButton = new Button("Save"), 0, 3);
         ui.add(loadButton = new Button("Load game"), 1, 3);
+        ui.add(importButton = new Button("Import"), 0, 5);
+        ui.add(exportButton = new Button("Export"), 1, 5);
         Style.setGrey(pickUpButton);
         Style.setGrey(loadButton);
+        Style.setGrey(importButton);
+        Style.setGrey(exportButton);
         Style.setReddish(saveButton);
 //        ui.add(new Label("Inventory: "), 0, 7);
 //        ui.add(inventoryLabel, 0, 4);

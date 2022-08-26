@@ -158,8 +158,6 @@ public class Main extends Application {
         }
     }
 
-
-
     private void importGameState() {
         FileChooserModal fileChooserModal = new FileChooserModal();
         String selectedFilePath = fileChooserModal.importMethod(primaryStage);

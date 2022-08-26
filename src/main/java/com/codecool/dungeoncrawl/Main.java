@@ -71,8 +71,8 @@ public class Main extends Application {
         ui.add(pickUpButton = new Button("Pick up"), 0, 1);
         ui.add(saveButton = new Button("Save"), 0, 3);
         ui.add(loadButton = new Button("Load game"), 1, 3);
-        ui.add(importButton = new Button("Import"), 0, 5);
-        ui.add(exportButton = new Button("Export"), 1, 5);
+        ui.add(importButton = new Button("Import"), 1, 5);
+        ui.add(exportButton = new Button("Export"), 0, 5);
         Style.setGrey(pickUpButton);
         Style.setGrey(loadButton);
         Style.setGrey(importButton);
